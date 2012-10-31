@@ -33,14 +33,14 @@ syn keyword dartInterfaces_DEPRECATED       Dynamic
 syn keyword dartErrors         AssertionError TypeError FallThroughError
 syn keyword dartStatement      return
 syn keyword dartStorageClass   static abstract
-syn keyword dartExceptions     throw try catch finally
+syn keyword dartExceptions     throw try on catch finally
 syn keyword dartExceptions     FormatException Exception ExpectException FutureAlreadyCompleteException FutureNotCompleteException./b ArgumentError IllegalJSRegExpException IndexOutOfRangeException IntegerDivisionByZeroException NoSuchMethodError NotImplementedException NullPointerException OutOfMemoryError StackOverflowException StateError UnsupportedError
 syn keyword dartExceptions_DEPRECATED     BadNumberFormatException
 syn keyword dartAssert         assert
 syn keyword dartClassDecl      extends implements interface
 " TODO(antonm): check if labels on break and continue are supported.
 syn keyword dartBranch         break continue nextgroup=dartUserLabelRef skipwhite
-syn keyword dartKeyword        get set operator call equals negate external
+syn keyword dartKeyword        get set operator external
 syn match   dartUserLabelRef   "\k\+" contained
 syn match   dartVarArg         "\.\.\."
 
