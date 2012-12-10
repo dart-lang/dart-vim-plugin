@@ -24,30 +24,25 @@ syn keyword dartRepeat         do while for
 syn keyword dartBoolean        true false
 syn keyword dartConstant       null
 syn keyword dartTypedef        this super class typedef
-syn keyword dartOperator       new is in factory const
-syn match   dartOperator       "+=\=\|-=\=\|*=\=\|/=\=\|%=\=\|\~/=\=\|<<=\=\|>>=\=\|[<>]=\=\|===\=\|\!==\=\|&=\=\|\^=\=\||=\=\|||\|&&\|\[\]=\=\|=>\|!\|\~"
-syn keyword dartType           void var final bool int double num dynamic
-syn keyword dartCommonInterfaces String Object Math RegExp Date
-syn keyword dartInterfaces       Collection Comparable Completer Duration Function Future HashMap HashSet Iterable Iterator LinkedHashMap List Map Match Options Pattern Queue Set Stopwatch StringBuffer TimeZone
-syn keyword dartInterfaces_DEPRECATED       Dynamic
-syn keyword dartErrors         AssertionError TypeError FallThroughError
+syn keyword dartOperator       new is as in factory
+syn match   dartOperator       "+=\=\|-=\=\|*=\=\|/=\=\|%=\=\|\~/=\=\|<<=\=\|>>=\=\|[<>]=\=\|===\=\|\!==\=\|&=\=\|\^=\=\||=\=\|||\|&&\|\[\]=\=\|=>\|!\|\~\|?"
+syn keyword dartType           void var bool int double num dynamic
 syn keyword dartStatement      return
-syn keyword dartStorageClass   static abstract
-syn keyword dartExceptions     throw try catch finally
-syn keyword dartExceptions     FormatException Exception ExpectException FutureAlreadyCompleteException FutureNotCompleteException./b ArgumentError IllegalJSRegExpException IndexOutOfRangeException IntegerDivisionByZeroException NoSuchMethodError NotImplementedException NullPointerException OutOfMemoryError StackOverflowException StateError UnsupportedError
-syn keyword dartExceptions_DEPRECATED     BadNumberFormatException
+syn keyword dartStorageClass   static abstract final const
+syn keyword dartExceptions     throw try on catch finally
 syn keyword dartAssert         assert
-syn keyword dartClassDecl      extends implements interface
-" TODO(antonm): check if labels on break and continue are supported.
+syn keyword dartClassDecl      extends implements
+syn keyword dartClassDecl_DEPRECATED      interface
 syn keyword dartBranch         break continue nextgroup=dartUserLabelRef skipwhite
-syn keyword dartKeyword        get set operator call equals negate external
+syn keyword dartKeyword        get set operator call external
 syn match   dartUserLabelRef   "\k\+" contained
 syn match   dartVarArg         "\.\.\."
 
-" TODO(antonm): consider conditional highlighting of corelib classes.
-
 syn region  dartLabelRegion   transparent matchgroup=dartLabel start="\<case\>" matchgroup=NONE end=":"
 syn keyword dartLabel         default
+
+syn match dartLibrary         "^\(import\|part of\|part\|library\|show\|hide\)\s"
+syn match dartLibrary_DEPRECATED        "^#\(import\|source\|library\)(\(\"[^\"]\+\"\|'[^']\+'\));"
 
 " Comments
 syn keyword dartTodo          contained TODO FIXME XXX
@@ -68,8 +63,15 @@ syn match   dartSpecialChar   contained "\\\(u\x\{4\}\|u{\x\+}\|x\x\x\|x{\x\+}\|
 " Numbers
 syn match dartNumber         "\<\d\+\(\.\d\+\)\=\>"
 
-syn match dartInclude_DEPRECATED        "^#\(import\|include\|source\|library\)(\(\"[^\"]\+\"\|'[^']\+'\));"
-syn match dartInclude        "^\(import\|include\|source\|library\)\s"
+" TODO(antonm): consider conditional highlighting of corelib classes.
+syn keyword dartCoreClasses    Collection Comparable Completer Date DoubleLinkedQueue DoubleLinkedQueueEntry Duration Expando Expect Function Future Futures Hashable HashMap HashSet Iterable Iterator LinkedHashMap List Map Match Object Options Pattern Queue RegExp Sequence SequenceCollection SequenceIterator SequenceList Set Stopwatch String StringBuffer Strings Type
+syn keyword dartCoreTypedefs   Comparator
+syn keyword dartCoreExceptions ArgumentError AssertionError CastError Error Exception ExpectException FallThroughError FormatException FutureAlreadyCompleteException FutureNotCompleteException  FutureUnhandledException IllegalJSRegExpException IntegerDivisionByZeroException NoSuchMethodError NullThrownError OutOfMemoryError RangeError RuntimeError StackOverflowError StateError TypeError UnimplementedError UnsupportedError
+
+syn keyword dartCoreClasses_DEPRECATED       Dynamic
+syn keyword dartCoreExceptions_DEPRECATED     BadNumberFormatException
+
+
 
 " The default highlighting.
 command! -nargs=+ HiLink hi def link <args>
@@ -81,13 +83,11 @@ HiLink dartUserLabel       Label
 HiLink dartConditional     Conditional
 HiLink dartRepeat          Repeat
 HiLink dartExceptions      Exception
-HiLink dartExceptions_DEPRECATED      Todo
 HiLink dartAssert          Statement
 HiLink dartStorageClass    StorageClass
 HiLink dartClassDecl       dartStorageClass
 HiLink dartBoolean         Boolean
 HiLink dartString          String
-HiLink dartRawString_DEPRECATED       Todo
 HiLink dartRawString       String
 HiLink dartMultilineString String
 HiLink dartRawMultilineString String
@@ -105,12 +105,18 @@ HiLink dartType            Type
 HiLink dartInterpolation   PreProc
 HiLink dartDocLink         SpecialComment
 HiLink dartSpecialChar     SpecialChar
-HiLink dartInclude_DEPRECATED         Todo
-HiLink dartInclude         Include
-HiLink dartErrors          Error
-HiLink dartCommonInterfaces Type
-HiLink dartInterfaces       Type
-HiLink dartInterfaces_DEPRECATED       Todo
+HiLink dartLibrary         Include
+
+HiLink dartCoreClasses     Type
+HiLink dartCoreTypedefs    Typedef
+HiLink dartCoreExceptions  Exception
+
+HiLink dartClassDecl_DEPRECATED       Todo
+HiLink dartRawString_DEPRECATED       Todo
+HiLink dartLibrary_DEPRECATED         Todo
+HiLink dartCoreClasses_DEPRECATED     Todo
+HiLink dartCoreExceptions_DEPRECATED  Todo
+
 delcommand HiLink
 
 let b:current_syntax = "dart"
