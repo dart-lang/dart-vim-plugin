@@ -25,24 +25,21 @@ syn keyword dartBoolean        true false
 syn keyword dartConstant       null
 syn keyword dartTypedef        this super class typedef
 syn keyword dartOperator       new is as in factory
-syn match   dartOperator       "+=\=\|-=\=\|*=\=\|/=\=\|%=\=\|\~/=\=\|<<=\=\|>>=\=\|[<>]=\=\|===\=\|\!==\=\|&=\=\|\^=\=\||=\=\|||\|&&\|\[\]=\=\|=>\|!\|\~\|?"
+syn match   dartOperator       "+=\=\|-=\=\|*=\=\|/=\=\|%=\=\|\~/=\=\|<<=\=\|>>=\=\|[<>]=\=\|===\=\|\!==\=\|&=\=\|\^=\=\||=\=\|||\|&&\|\[\]=\=\|=>\|!\|\~\|?\|:"
 syn keyword dartType           void var bool int double num dynamic
 syn keyword dartStatement      return
 syn keyword dartStorageClass   static abstract final const
-syn keyword dartExceptions     throw try on catch finally
+syn keyword dartExceptions     throw rethrow try on catch finally
 syn keyword dartAssert         assert
-syn keyword dartClassDecl      extends implements
-syn keyword dartClassDecl_DEPRECATED      interface
+syn keyword dartClassDecl      extends with implements
 syn keyword dartBranch         break continue nextgroup=dartUserLabelRef skipwhite
 syn keyword dartKeyword        get set operator call external
 syn match   dartUserLabelRef   "\k\+" contained
-syn match   dartVarArg         "\.\.\."
 
 syn region  dartLabelRegion   transparent matchgroup=dartLabel start="\<case\>" matchgroup=NONE end=":"
 syn keyword dartLabel         default
 
-syn match dartLibrary         "^\(import\|part of\|part\|library\|show\|hide\)\s"
-syn match dartLibrary_DEPRECATED        "^#\(import\|source\|library\)(\(\"[^\"]\+\"\|'[^']\+'\));"
+syn match dartLibrary         "^\(import\|part of\|part\|export\|library\|show\|hide\)\s"
 
 " Comments
 syn keyword dartTodo          contained TODO FIXME XXX
@@ -53,7 +50,6 @@ syn region  dartDocLink       contained start=+\[+ end=+\]+
 
 " Strings
 syn region  dartString        start=+\z(["']\)+ end=+\z1+ contains=@Spell,dartInterpolation,dartSpecialChar
-syn region  dartRawString_DEPRECATED     start=+@\z(["']\)+ end=+\z1+ contains=@Spell
 syn region  dartRawString     start=+r\z(["']\)+ end=+\z1+ contains=@Spell
 syn region  dartMultilineString     start=+\z("\{3\}\|'\{3\}\)+ end=+\z1+ contains=@Spell,dartInterpolation,dartSpecialChar
 syn region  dartRawMultilineString     start=+r\z("\{3\}\|'\{3\}\)+ end=+\z1+ contains=@Spell
@@ -64,18 +60,13 @@ syn match   dartSpecialChar   contained "\\\(u\x\{4\}\|u{\x\+}\|x\x\x\|x{\x\+}\|
 syn match dartNumber         "\<\d\+\(\.\d\+\)\=\>"
 
 " TODO(antonm): consider conditional highlighting of corelib classes.
-syn keyword dartCoreClasses    Collection Comparable Completer Date DoubleLinkedQueue DoubleLinkedQueueEntry Duration Expando Expect Function Future Futures Hashable HashMap HashSet Iterable Iterator LinkedHashMap List Map Match Object Options Pattern Queue RegExp Sequence SequenceCollection SequenceIterator SequenceList Set Stopwatch String StringBuffer Strings Type
+syn keyword dartCoreClasses    BidirectionalIterator Comparable DateTime Duration Expando Function Invocation Iterable Iterator List Map Match Object Pattern RegExp RuneIterator Runes Set StackTrace Stopwatch String StringBuffer StringSink Symbol Type
 syn keyword dartCoreTypedefs   Comparator
-syn keyword dartCoreExceptions ArgumentError AssertionError CastError Error Exception ExpectException FallThroughError FormatException FutureAlreadyCompleteException FutureNotCompleteException  FutureUnhandledException IllegalJSRegExpException IntegerDivisionByZeroException NoSuchMethodError NullThrownError OutOfMemoryError RangeError RuntimeError StackOverflowError StateError TypeError UnimplementedError UnsupportedError
-
-syn keyword dartCoreClasses_DEPRECATED       Dynamic
-syn keyword dartCoreExceptions_DEPRECATED     BadNumberFormatException
-
+syn keyword dartCoreExceptions AbstractClassInstantiationError ArgumentError AssertionError CastError ConcurrentModificationError Error Exception FallThroughError FormatException IntegerDivisionByZeroException NoSuchMethodError NullThrownError OutOfMemoryError RangeError RuntimeError StackOverflowError StateError TypeError UnimplementedError UnsupportedError
 
 
 " The default highlighting.
 command! -nargs=+ HiLink hi def link <args>
-HiLink dartVarArg          Function
 HiLink dartBranch          Conditional
 HiLink dartUserLabelRef    dartUserLabel
 HiLink dartLabel           Label
@@ -110,12 +101,6 @@ HiLink dartLibrary         Include
 HiLink dartCoreClasses     Type
 HiLink dartCoreTypedefs    Typedef
 HiLink dartCoreExceptions  Exception
-
-HiLink dartClassDecl_DEPRECATED       Todo
-HiLink dartRawString_DEPRECATED       Todo
-HiLink dartLibrary_DEPRECATED         Todo
-HiLink dartCoreClasses_DEPRECATED     Todo
-HiLink dartCoreExceptions_DEPRECATED  Todo
 
 delcommand HiLink
 
