@@ -3,118 +3,105 @@
 " for details. All rights reserved. Use of this source code is governed by a
 " BSD-style license that can be found in the LICENSE file.
 
-" Quit when a syntax file was already loaded
-if !exists("main_syntax")
+if ! exists("g:main_syntax")
   if version < 600
     syntax clear
   elseif exists("b:current_syntax")
     finish
   endif
-  " we define it here so that included files can test for it
-  let main_syntax='dart'
-  syn region dartFold start="{" end="}" transparent fold
+  let g:main_syntax = 'dart'
+  syntax region dartFold start="{" end="}" transparent fold
 endif
 
 " Ensure long multiline strings are highlighted.
-syn sync fromstart
+syntax sync fromstart
 
 " keyword definitions
-syn keyword dartConditional    if else switch
-syn keyword dartRepeat         do while for
-syn keyword dartBoolean        true false
-syn keyword dartConstant       null
-syn keyword dartTypedef        this super class typedef
-syn keyword dartOperator       new is as in factory
-syn match   dartOperator       "+=\=\|-=\=\|*=\=\|/=\=\|%=\=\|\~/=\=\|<<=\=\|>>=\=\|[<>]=\=\|===\=\|\!==\=\|&=\=\|\^=\=\||=\=\|||\|&&\|\[\]=\=\|=>\|!\|\~\|?\|:"
-syn keyword dartType           void var bool int double num dynamic
-syn keyword dartStatement      return
-syn keyword dartStorageClass   static abstract final const
-syn keyword dartExceptions     throw rethrow try on catch finally
-syn keyword dartAssert         assert
-syn keyword dartClassDecl      extends with implements
-syn keyword dartBranch         break continue nextgroup=dartUserLabelRef skipwhite
-syn keyword dartKeyword        get set operator call external
-syn match   dartUserLabelRef   "\k\+" contained
+syntax keyword dartConditional    if else switch
+syntax keyword dartRepeat         do while for
+syntax keyword dartBoolean        true false
+syntax keyword dartConstant       null
+syntax keyword dartTypedef        this super class typedef
+syntax keyword dartOperator       new is as in factory
+syntax match   dartOperator       "+=\=\|-=\=\|*=\=\|/=\=\|%=\=\|\~/=\=\|<<=\=\|>>=\=\|[<>]=\=\|===\=\|\!==\=\|&=\=\|\^=\=\||=\=\|||\|&&\|\[\]=\=\|=>\|!\|\~\|?\|:"
+syntax keyword dartType           void var bool int double num dynamic
+syntax keyword dartStatement      return
+syntax keyword dartStorageClass   static abstract final const
+syntax keyword dartExceptions     throw rethrow try on catch finally
+syntax keyword dartAssert         assert
+syntax keyword dartClassDecl      extends with implements
+syntax keyword dartBranch         break continue nextgroup=dartUserLabelRef skipwhite
+syntax keyword dartKeyword        get set operator call external
+syntax match   dartUserLabelRef   "\k\+" contained
 
-syn region  dartLabelRegion   transparent matchgroup=dartLabel start="\<case\>" matchgroup=NONE end=":"
-syn keyword dartLabel         default
+syntax region  dartLabelRegion   transparent matchgroup=dartLabel start="\<case\>" matchgroup=NONE end=":"
+syntax keyword dartLabel         default
 
-syn match dartLibrary         "^\(import\|part of\|part\|export\|library\|show\|hide\)\s"
+syntax match dartLibrary         "^\(import\|part of\|part\|export\|library\|show\|hide\)\s"
 
 " Comments
-syn keyword dartTodo          contained TODO FIXME XXX
-syn region  dartComment       start="/\*"  end="\*/" contains=dartTodo,dartDocLink,@Spell
-syn match   dartLineComment   "//.*" contains=dartTodo,@Spell
-syn match   dartLineDocComment "///.*" contains=dartTodo,dartDocLink,@Spell
-syn region  dartDocLink       contained start=+\[+ end=+\]+
+syntax keyword dartTodo          contained TODO FIXME XXX
+syntax region  dartComment       start="/\*"  end="\*/" contains=dartTodo,dartDocLink,@Spell
+syntax match   dartLineComment   "//.*" contains=dartTodo,@Spell
+syntax match   dartLineDocComment "///.*" contains=dartTodo,dartDocLink,@Spell
+syntax region  dartDocLink       contained start=+\[+ end=+\]+
 
 " Strings
-syn region  dartString        start=+\z(["']\)+ end=+\z1+ contains=@Spell,dartInterpolation,dartSpecialChar
-syn region  dartRawString     start=+r\z(["']\)+ end=+\z1+ contains=@Spell
-syn region  dartMultilineString     start=+\z("\{3\}\|'\{3\}\)+ end=+\z1+ contains=@Spell,dartInterpolation,dartSpecialChar
-syn region  dartRawMultilineString     start=+r\z("\{3\}\|'\{3\}\)+ end=+\z1+ contains=@Spell
-syn match   dartInterpolation contained "\$\(\w\+\|{[^}]\+}\)"
-syn match   dartSpecialChar   contained "\\\(u\x\{4\}\|u{\x\+}\|x\x\x\|x{\x\+}\|.\)"
+syntax region  dartString        start=+\z(["']\)+ end=+\z1+ contains=@Spell,dartInterpolation,dartSpecialChar
+syntax region  dartRawString     start=+r\z(["']\)+ end=+\z1+ contains=@Spell
+syntax region  dartMultilineString     start=+\z("\{3\}\|'\{3\}\)+ end=+\z1+ contains=@Spell,dartInterpolation,dartSpecialChar
+syntax region  dartRawMultilineString     start=+r\z("\{3\}\|'\{3\}\)+ end=+\z1+ contains=@Spell
+syntax match   dartInterpolation contained "\$\(\w\+\|{[^}]\+}\)"
+syntax match   dartSpecialChar   contained "\\\(u\x\{4\}\|u{\x\+}\|x\x\x\|x{\x\+}\|.\)"
 
 " Numbers
-syn match dartNumber         "\<\d\+\(\.\d\+\)\=\>"
+syntax match dartNumber         "\<\d\+\(\.\d\+\)\=\>"
 
 " TODO(antonm): consider conditional highlighting of corelib classes.
-syn keyword dartCoreClasses    BidirectionalIterator Comparable DateTime Duration Expando Function Invocation Iterable Iterator List Map Match Object Pattern RegExp RuneIterator Runes Set StackTrace Stopwatch String StringBuffer StringSink Symbol Type
-syn keyword dartCoreTypedefs   Comparator
-syn keyword dartCoreExceptions AbstractClassInstantiationError ArgumentError AssertionError CastError ConcurrentModificationError Error Exception FallThroughError FormatException IntegerDivisionByZeroException NoSuchMethodError NullThrownError OutOfMemoryError RangeError RuntimeError StackOverflowError StateError TypeError UnimplementedError UnsupportedError
+syntax keyword dartCoreClasses    BidirectionalIterator Comparable DateTime Duration Expando Function Invocation Iterable Iterator List Map Match Object Pattern RegExp RuneIterator Runes Set StackTrace Stopwatch String StringBuffer StringSink Symbol Type
+syntax keyword dartCoreTypedefs   Comparator
+syntax keyword dartCoreExceptions AbstractClassInstantiationError ArgumentError AssertionError CastError ConcurrentModificationError Error Exception FallThroughError FormatException IntegerDivisionByZeroException NoSuchMethodError NullThrownError OutOfMemoryError RangeError RuntimeError StackOverflowError StateError TypeError UnimplementedError UnsupportedError
 
 
 " The default highlighting.
-command! -nargs=+ HiLink hi def link <args>
-HiLink dartBranch          Conditional
-HiLink dartUserLabelRef    dartUserLabel
-HiLink dartLabel           Label
-HiLink dartUserLabel       Label
-HiLink dartConditional     Conditional
-HiLink dartRepeat          Repeat
-HiLink dartExceptions      Exception
-HiLink dartAssert          Statement
-HiLink dartStorageClass    StorageClass
-HiLink dartClassDecl       dartStorageClass
-HiLink dartBoolean         Boolean
-HiLink dartString          String
-HiLink dartRawString       String
-HiLink dartMultilineString String
-HiLink dartRawMultilineString String
-HiLink dartNumber          Number
-HiLink dartStatement       Statement
-HiLink dartOperator        Operator
-HiLink dartComment         Comment
-HiLink dartLineComment     Comment
-HiLink dartLineDocComment  Comment
-HiLink dartConstant        Constant
-HiLink dartTypedef         Typedef
-HiLink dartTodo            Todo
-HiLink dartKeyword         Keyword
-HiLink dartType            Type
-HiLink dartInterpolation   PreProc
-HiLink dartDocLink         SpecialComment
-HiLink dartSpecialChar     SpecialChar
-HiLink dartLibrary         Include
-
-HiLink dartCoreClasses     Type
-HiLink dartCoreTypedefs    Typedef
-HiLink dartCoreExceptions  Exception
-
-delcommand HiLink
+highlight default link dartBranch          Conditional
+highlight default link dartUserLabelRef    dartUserLabel
+highlight default link dartLabel           Label
+highlight default link dartUserLabel       Label
+highlight default link dartConditional     Conditional
+highlight default link dartRepeat          Repeat
+highlight default link dartExceptions      Exception
+highlight default link dartAssert          Statement
+highlight default link dartStorageClass    StorageClass
+highlight default link dartClassDecl       dartStorageClass
+highlight default link dartBoolean         Boolean
+highlight default link dartString          String
+highlight default link dartRawString       String
+highlight default link dartMultilineString String
+highlight default link dartRawMultilineString String
+highlight default link dartNumber          Number
+highlight default link dartStatement       Statement
+highlight default link dartOperator        Operator
+highlight default link dartComment         Comment
+highlight default link dartLineComment     Comment
+highlight default link dartLineDocComment  Comment
+highlight default link dartConstant        Constant
+highlight default link dartTypedef         Typedef
+highlight default link dartTodo            Todo
+highlight default link dartKeyword         Keyword
+highlight default link dartType            Type
+highlight default link dartInterpolation   PreProc
+highlight default link dartDocLink         SpecialComment
+highlight default link dartSpecialChar     SpecialChar
+highlight default link dartLibrary         Include
+highlight default link dartCoreClasses     Type
+highlight default link dartCoreTypedefs    Typedef
+highlight default link dartCoreExceptions  Exception
 
 let b:current_syntax = "dart"
+let b:spell_options = "contained"
 
-if main_syntax == 'dart'
-  unlet main_syntax
+if g:main_syntax is# 'dart'
+  unlet g:main_syntax
 endif
 
-let b:spell_options="contained"
-
-" Enable automatic indentation (2 spaces)
-set expandtab
-set shiftwidth=2
-set softtabstop=2
-set cindent
-set cinoptions+=j1,J1
