@@ -6,7 +6,7 @@ endif
 let b:did_ftplugin = 1
 
 let &l:errorformat =
-  \ '''file://' . ((has('win32') || has('win64')) ? '/' : '') . '%f'': error: line %l pos %c:%m,%m (file://%f:%l:%c),%m'
+  \ ' %#''file://' . ((has('win32') || has('win64')) ? '/' : '') . '%f'': %s: line %l pos %c:%m,%m (file://%f:%l:%c),%m'
 
 setlocal expandtab
 setlocal commentstring=//\ %s
