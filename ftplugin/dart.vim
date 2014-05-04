@@ -10,8 +10,6 @@ let s:win_sep = (has('win32') || has('win64')) ? '/' : ''
 let &l:errorformat =
   \ join([
   \   ' %#''file://' . s:win_sep . '%f'': %s: line %l pos %c:%m',
-  \   '%m (file://%f:%l:%c)',
-  \   '%m (dart:isolate-patch/%f:%l)',
   \   '%m'
   \ ], ',')
 
