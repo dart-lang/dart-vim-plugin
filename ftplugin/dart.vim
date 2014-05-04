@@ -5,8 +5,15 @@ endif
 
 let b:did_ftplugin = 1
 
+let s:win_sep = (has('win32') || has('win64')) ? '/' : ''
+
 let &l:errorformat =
-  \ ' %#''file://' . ((has('win32') || has('win64')) ? '/' : '') . '%f'': %s: line %l pos %c:%m,%m (file://%f:%l:%c),%m'
+  \ join([
+  \   ' %#''file://' . s:win_sep . '%f'': %s: line %l pos %c:%m',
+  \   '%m (file://%f:%l:%c)',
+  \   '%m (dart:isolate-patch/%f:%l)',
+  \   '%m'
+  \ ], ',')
 
 setlocal expandtab
 setlocal commentstring=//\ %s
