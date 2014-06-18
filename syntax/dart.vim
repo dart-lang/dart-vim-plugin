@@ -111,10 +111,3 @@ if main_syntax == 'dart'
 endif
 
 let b:spell_options="contained"
-
-" Enable automatic indentation (2 spaces)
-set expandtab
-set shiftwidth=2
-set softtabstop=2
-set cindent
-set cinoptions+=j1,J1
