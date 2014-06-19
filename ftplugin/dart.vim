@@ -4,9 +4,9 @@ endif
 let b:did_ftplugin = 1
 
 " Enable automatic indentation (2 spaces)
-setlocal expandtab
-setlocal shiftwidth=2
-setlocal softtabstop=2
+"setlocal expandtab
+"setlocal shiftwidth=2
+"setlocal softtabstop=2
 
 setlocal formatoptions-=t
 
