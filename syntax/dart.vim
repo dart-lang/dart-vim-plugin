@@ -104,4 +104,3 @@ let b:spell_options = "contained"
 if g:main_syntax is# 'dart'
   unlet g:main_syntax
 endif
-
