@@ -1,3 +1,4 @@
+
 # Dart plugin for VIM
 
 This is an (unsupported) plugin for using Dart with Vim. Pull requests welcome!
@@ -5,7 +6,30 @@ This is an (unsupported) plugin for using Dart with Vim. Pull requests welcome!
 Looking for an IDE experience? Try [Dart Editor][1],
 [Dart plugin for Eclipse][2], or [Dart plugin for IntelliJ/WebStorm][3].
 
-License:
+
+## Installation
+
+1. Make a directory.
+
+        mkdir -p ~/.vim/bundle
+
+
+2. Clone a repository.
+
+        cd ~/.vim/bundle
+        git clone https://github.com/dart-lang/dart-vim-plugin
+
+
+3. Put following codes in your `~/.vimrc`.
+
+        if has('vim_starting')
+          set nocompatible
+          set runtimepath+=~/.vim/bundle/dart-vim-plugin
+        endif
+        filetype plugin indent on
+
+
+## License
 
     Copyright 2012, the Dart project authors. All rights reserved.
     Redistribution and use in source and binary forms, with or without
@@ -35,3 +59,4 @@ License:
 [1]: http://www.dartlang.org/editor
 [2]: http://news.dartlang.org/2012/08/dart-plugin-for-eclipse-is-ready-for.html
 [3]: http://plugins.intellij.net/plugin/?id=6351
+
