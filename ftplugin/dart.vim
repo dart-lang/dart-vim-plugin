@@ -13,7 +13,7 @@ if exists('g:dart_style_guide')
 endif
 
 " Set 'comments' to format dashed lists in comments.
-setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
+setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:///,://
 
 setlocal commentstring=//%s
 let s:win_sep = (has('win32') || has('win64')) ? '/' : ''
