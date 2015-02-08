@@ -1,7 +1,7 @@
+# Dart Support for Vim
 
-# Dart plugin for VIM
-
-This is an (unsupported) plugin for using Dart with Vim. Pull requests welcome!
+dart-vim-plugin provides filytype detection, syntax highlighting, and
+indentation for [Dart](https://dartlang.org/) code in Vim.
 
 Looking for an IDE experience? Try [Dart Editor][1],
 [Dart plugin for Eclipse][2], or [Dart plugin for IntelliJ/WebStorm][3].
