@@ -34,6 +34,24 @@ private directories
         endif
         filetype plugin indent on
 
+
+## Commands
+
+You can use following vim commands:
+
+### :Dart2Js
+
+![](https://raw.github.com/rbtnn/dart-vim-plugin/master/Dart2Js.gif)
+
+### :DartAnalyzer
+
+![](https://raw.github.com/rbtnn/dart-vim-plugin/master/DartAnalyzer.gif)
+
+### :DartFmt
+
+![](https://raw.github.com/rbtnn/dart-vim-plugin/master/DartFmt.gif)
+
+
 [0]: http://www.dartlang.org/
 [1]: http://www.dartlang.org/editor
 [2]: http://news.dartlang.org/2012/08/dart-plugin-for-eclipse-is-ready-for.html
