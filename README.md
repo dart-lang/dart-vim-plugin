@@ -41,15 +41,15 @@ You can use following vim commands:
 
 ### :Dart2Js
 
-![](https://raw.github.com/rbtnn/dart-vim-plugin/master/Dart2Js.gif)
+![](https://raw.github.com/dart-lang/dart-vim-plugin/master/Dart2Js.gif)
 
 ### :DartAnalyzer
 
-![](https://raw.github.com/rbtnn/dart-vim-plugin/master/DartAnalyzer.gif)
+![](https://raw.github.com/dart-lang/dart-vim-plugin/master/DartAnalyzer.gif)
 
 ### :DartFmt
 
-![](https://raw.github.com/rbtnn/dart-vim-plugin/master/DartFmt.gif)
+![](https://raw.github.com/dart-lang/dart-vim-plugin/master/DartFmt.gif)
 
 
 [0]: http://www.dartlang.org/
