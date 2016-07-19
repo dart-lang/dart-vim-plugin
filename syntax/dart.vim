@@ -41,7 +41,7 @@ syntax match dartLibrary         "^\(import\|part of\|part\|export\|library\|sho
 
 " Comments
 syntax keyword dartTodo          contained TODO FIXME XXX
-syntax region  dartComment       start="/\*"  end="\*/" contains=dartTodo,dartDocLink,@Spell
+syntax region  dartComment       start="/\*"  end="\*/" contains=dartComment,dartTodo,dartDocLink,@Spell
 syntax match   dartLineComment   "//.*" contains=dartTodo,@Spell
 syntax match   dartLineDocComment "///.*" contains=dartTodo,dartDocLink,@Spell
 syntax region  dartDocLink       oneline contained start=+\[+ end=+\]+
