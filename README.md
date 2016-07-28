@@ -1,6 +1,6 @@
 # Dart Support for Vim
 
-dart-vim-plugin provides filytype detection, syntax highlighting, and
+dart-vim-plugin provides filetype detection, syntax highlighting, and
 indentation for [Dart][0] code in Vim.
 
 Looking for an IDE experience? See the [Dart Tools][1] page..
