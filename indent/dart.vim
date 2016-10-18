@@ -22,12 +22,12 @@ function! DartIndent()
   let currentLine = getline(v:lnum)
 
   " Don't indent after an annotation
-  if previousLine =~ '^\s*@.*$'
+  if previousLine =~# '^\s*@.*$'
     let indentTo = indent(v:lnum - 1)
   endif
 
   " Indent after opening List literal
-  if previousLine =~ '\[$' && !(currentLine =~ '^\s*\]')
+  if previousLine =~# '\[$' && !(currentLine =~# '^\s*\]')
     let indentTo = indent(v:lnum - 1) + &shiftwidth
   endif
 
