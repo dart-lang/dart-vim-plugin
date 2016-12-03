@@ -21,9 +21,11 @@ function! dart#fmt(q_args) abort
     let buffer_content = join(getline(1, '$'), "\n")
     let joined_lines = system(printf('dartfmt %s', a:q_args), buffer_content)
     if 0 == v:shell_error
+      let win_view = winsaveview()
       silent % delete _
       silent put=joined_lines
       silent 1 delete _
+      call winrestview(win_view)
     else
       let errors = split(joined_lines, "\n")[2:]
       let file_path = expand('%')
