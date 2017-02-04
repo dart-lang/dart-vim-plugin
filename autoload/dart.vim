@@ -134,12 +134,16 @@ function! s:DotPackagesFile() abort
     return [v:true, '.packages']
   endif
   let dir_path = expand('%:p:h')
-  while dir_path != '/'
+  while v:true
     let file_path = dir_path.'/.packages'
     if filereadable(file_path)
       return [v:true, file_path]
     endif
-    let dir_path = fnamemodify(dir_path, ':h')
+    let parent = fnamemodify(dir_path, ':h')
+    if dir_path == parent
+      break
+    endif
+    let dir_path = parent
   endwhile
   return [v:false, '']
 endfunction
