@@ -107,9 +107,15 @@ function! s:PackageMap() abort
     let package = substitute(line, ':.*$', '', '')
     let lib_dir = substitute(line, '^[^:]*:', '', '')
     if lib_dir =~ 'file:/'
-      let lib_dir = substitute(resolve(lib_dir), 'file:', '', '')
+      let lib_dir = substitute(lib_dir, 'file://', '', '')
+      if lib_dir =~ '/[A-Z]:/'
+        let lib_dir = lib_dir[1:]
+      endif
     else
       let lib_dir = resolve(dot_packages_dir.'/'.lib_dir)
+    endif
+    if lib_dir =~ '/$'
+      let lib_dir = lib_dir[:len(lib_dir) - 2]
     endif
     let map[package] = lib_dir
   endfor
