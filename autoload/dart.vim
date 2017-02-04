@@ -86,7 +86,10 @@ function! dart#resolveUri(uri) abort
     return a:uri
   endif
   let package_lib = package_map[package_name]
-  return substitute(a:uri, 'package:'.package_name, package_map[package_name], '')
+  return substitute(a:uri,
+      \ 'package:'.package_name,
+      \ escape(package_map[package_name], '\'),
+      \ '')
 endfunction
 
 " A map from package name to lib directory parse from a '.packages' file.
