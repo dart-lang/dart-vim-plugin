@@ -25,7 +25,7 @@ private directories
         git clone https://github.com/dart-lang/dart-vim-plugin
 
 
-3. Put following codes in your `~/.vimrc`.
+3. Put following codes in your `~/.vimrc` under your `execute pathogen#infect()`.
 
         if has('vim_starting')
           set nocompatible
