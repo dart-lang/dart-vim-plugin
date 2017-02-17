@@ -44,7 +44,7 @@ call plug#end()
 
 ### [pathogen][]
 
-[pathogen.vim]:https://github.com/tpope/vim-pathogen
+[pathogen]:https://github.com/tpope/vim-pathogen
 
 Clone the repository into your pathogen directory.
 
