@@ -1,38 +1,12 @@
 # Dart Support for Vim
 
 dart-vim-plugin provides filetype detection, syntax highlighting, and
-indentation for [Dart][0] code in Vim.
+indentation for [Dart][] code in Vim.
 
-Looking for an IDE experience? See the [Dart Tools][1] page..
+Looking for an IDE experience? See the [Dart Tools][] page.
 
-## Prerequisites
-
-You need to install [pathogen.vim](their own://github.com/tpope/vim-pathogen)
-in order to install and user dart-vim-plugin. Pathogen makes it super easy
-to install plugins and runtime files under `~./vim/bundle` or in their own
-private directories
-
-## Installation
-
-1. Make a directory.
-
-        mkdir -p ~/.vim/bundle
-
-
-2. Clone a repository.
-
-        cd ~/.vim/bundle
-        git clone https://github.com/dart-lang/dart-vim-plugin
-
-
-3. Put following codes in your `~/.vimrc` under your `execute pathogen#infect()`.
-
-        if has('vim_starting')
-          set nocompatible
-          set runtimepath+=~/.vim/bundle/dart-vim-plugin
-        endif
-        filetype plugin indent on
-
+[Dart]: http://www.dartlang.org/
+[Dart tools]: http://www.dartlang.org/tools/
 
 ## Commands
 
@@ -50,6 +24,47 @@ You can use following vim commands:
 
 ![](https://raw.github.com/dart-lang/dart-vim-plugin/master/DartFmt.gif)
 
+## Installation
 
-[0]: http://www.dartlang.org/
-[1]: http://www.dartlang.org/tools/
+Install as a typical vim plugin using your favorite approach. If you don't have
+a preference [vim-plug][] is a good place to start. Below are examples for
+common choices, be sure to read the docs for each option.
+
+### [vim-plug][]
+
+[vim-plug]:https://github.com/junegunn/vim-plug
+
+```vimscript
+call plug#begin()
+"... <snip other plugins>
+Plug 'dart-lang/dart-vim-plugin'
+
+call plug#end()
+```
+
+### [pathogen][]
+
+[pathogen.vim]:https://github.com/tpope/vim-pathogen
+
+Clone the repository into your pathogen directory.
+
+```sh
+mkdir -p ~/.vim/bundle && cd ~/.vim/bundle && \
+git clone https://github.com/dart-lang/dart-vim-plugin
+```
+
+Ensure your `.vimrc` contains the line `execute pathogen#infect()`
+
+### [vundle][]
+
+[vundle]:https://github.com/VundleVim/Vundle.vim
+
+```vimscript
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+"... <snip other plugins>
+Plugin 'dart-lang/dart-vim-plugin'
+
+call vundle#end()
+```
+
