@@ -68,3 +68,7 @@ Plugin 'dart-lang/dart-vim-plugin'
 call vundle#end()
 ```
 
+## Configuration
+
+Enable HTML syntax highlighting inside Dart strings with `let
+dart_html_in_string=v:true`.
