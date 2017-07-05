@@ -53,11 +53,16 @@ syntax match   dartLineDocComment "///.*" contains=dartTodo,dartDocLink,@Spell
 syntax region  dartDocLink       oneline contained start=+\[+ end=+\]+
 
 " Strings
-syntax include @HTML syntax/html.vim
-syntax region  dartString        start=+\z(["']\)+ end=+\z1+ contains=@HTML,@Spell,dartInterpolation,dartSpecialChar
-syntax region  dartRawString     start=+r\z(["']\)+ end=+\z1+ contains=@HTML,@Spell
-syntax region  dartMultilineString     start=+\z("\{3\}\|'\{3\}\)+ end=+\z1+ contains=@HTML,@Spell,dartInterpolation,dartSpecialChar
-syntax region  dartRawMultilineString     start=+r\z("\{3\}\|'\{3\}\)+ end=+\z1+ contains=@HTML,@Spell
+syntax cluster dartRawStringContains contains=@Spell
+if exists('dart_html_in_strings') && dart_html_in_strings
+  syntax include @HTML syntax/html.vim
+  syntax cluster dartRawStringContains add=@HTML
+endif
+syntax cluster dartStringContains contains=@dartRawStringContains,dartInterpolation,dartSpecialChar
+syntax region  dartString        start=+\z(["']\)+ end=+\z1+ contains=@dartStringContains
+syntax region  dartRawString     start=+r\z(["']\)+ end=+\z1+ contains=@dartRawStringContains
+syntax region  dartMultilineString     start=+\z("\{3\}\|'\{3\}\)+ end=+\z1+ contains=@dartStringContains
+syntax region  dartRawMultilineString     start=+r\z("\{3\}\|'\{3\}\)+ end=+\z1+ contains=@dartSRawtringContains
 syntax match   dartInterpolation contained "\$\(\w\+\|{[^}]\+}\)"
 syntax match   dartSpecialChar   contained "\\\(u\x\{4\}\|u{\x\+}\|x\x\x\|x{\x\+}\|.\)"
 
