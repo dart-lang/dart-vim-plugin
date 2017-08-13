@@ -71,4 +71,7 @@ call vundle#end()
 ## Configuration
 
 Enable HTML syntax highlighting inside Dart strings with `let
-dart_html_in_string=v:true`.
+dart_html_in_string=v:true` (default false).
+
+Disable highlighting of core library classes with `let
+dart_corelib_highlight=v:faslse` (default true).
