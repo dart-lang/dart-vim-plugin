@@ -16,6 +16,8 @@ endif
 " Ensure long multiline strings are highlighted.
 syntax sync fromstart
 
+syntax case match
+
 " keyword definitions
 syntax keyword dartConditional    if else switch
 syntax keyword dartRepeat         do while for
@@ -45,6 +47,24 @@ syntax match   dartLibrary       "^\(library\|part of\|part\)\>"
 
 syntax match   dartMetadata      "@\([_$a-zA-Z][_$a-zA-Z0-9]*\.\)*[_$a-zA-Z][_$a-zA-Z0-9]*\>"
 
+" Numbers
+syntax match dartNumber         "\<\d\+\(\.\d\+\)\=\>"
+
+" Core libraries
+if !exists('dart_corelib_highlight') || dart_corelib_highlight
+  syntax keyword dartCoreClasses BidirectionalIterator Comparable DateTime
+      \ Duration Expando Function Invocation Iterable Iterator List Map Match
+      \ Object Pattern RegExp RuneIterator Runes Set StackTrace Stopwatch String
+      \ StringBuffer StringSink Symbol Type
+  syntax keyword dartCoreTypedefs   Comparator
+  syntax keyword dartCoreExceptions AbstractClassInstantiationError
+      \ ArgumentError AssertionError CastError ConcurrentModificationError
+      \ Error Exception FallThroughError FormatException
+      \ IntegerDivisionByZeroException NoSuchMethodError NullThrownError
+      \ OutOfMemoryError RangeError RuntimeError StackOverflowError StateError
+      \ TypeError UnimplementedError UnsupportedError
+endif
+
 " Comments
 syntax keyword dartTodo          contained TODO FIXME XXX
 syntax region  dartComment       start="/\*"  end="\*/" contains=dartComment,dartTodo,dartDocLink,@Spell
@@ -65,15 +85,6 @@ syntax region  dartMultilineString     start=+\z("\{3\}\|'\{3\}\)+ end=+\z1+ con
 syntax region  dartRawMultilineString     start=+r\z("\{3\}\|'\{3\}\)+ end=+\z1+ contains=@dartSRawtringContains
 syntax match   dartInterpolation contained "\$\(\w\+\|{[^}]\+}\)" extend
 syntax match   dartSpecialChar   contained "\\\(u\x\{4\}\|u{\x\+}\|x\x\x\|x{\x\+}\|.\)" extend
-
-" Numbers
-syntax match dartNumber         "\<\d\+\(\.\d\+\)\=\>"
-
-" TODO(antonm): consider conditional highlighting of corelib classes.
-syntax keyword dartCoreClasses    BidirectionalIterator Comparable DateTime Duration Expando Function Invocation Iterable Iterator List Map Match Object Pattern RegExp RuneIterator Runes Set StackTrace Stopwatch String StringBuffer StringSink Symbol Type
-syntax keyword dartCoreTypedefs   Comparator
-syntax keyword dartCoreExceptions AbstractClassInstantiationError ArgumentError AssertionError CastError ConcurrentModificationError Error Exception FallThroughError FormatException IntegerDivisionByZeroException NoSuchMethodError NullThrownError OutOfMemoryError RangeError RuntimeError StackOverflowError StateError TypeError UnimplementedError UnsupportedError
-
 
 " The default highlighting.
 highlight default link dartBranch          Conditional
