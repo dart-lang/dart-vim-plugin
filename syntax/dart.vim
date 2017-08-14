@@ -59,12 +59,12 @@ if exists('dart_html_in_strings') && dart_html_in_strings
   syntax cluster dartRawStringContains add=@HTML
 endif
 syntax cluster dartStringContains contains=@dartRawStringContains,dartInterpolation,dartSpecialChar
-syntax region  dartString         oneline start=+\z(["']\)+ end=+\z1+ contains=@dartStringContains
-syntax region  dartRawString      oneline start=+r\z(["']\)+ end=+\z1+ contains=@dartRawStringContains
+syntax region  dartString         oneline start=+\z(["']\)+ end=+\z1+ contains=@dartStringContains keepend
+syntax region  dartRawString      oneline start=+r\z(["']\)+ end=+\z1+ contains=@dartRawStringContains keepend
 syntax region  dartMultilineString     start=+\z("\{3\}\|'\{3\}\)+ end=+\z1+ contains=@dartStringContains
 syntax region  dartRawMultilineString     start=+r\z("\{3\}\|'\{3\}\)+ end=+\z1+ contains=@dartSRawtringContains
-syntax match   dartInterpolation contained "\$\(\w\+\|{[^}]\+}\)"
-syntax match   dartSpecialChar   contained "\\\(u\x\{4\}\|u{\x\+}\|x\x\x\|x{\x\+}\|.\)"
+syntax match   dartInterpolation contained "\$\(\w\+\|{[^}]\+}\)" extend
+syntax match   dartSpecialChar   contained "\\\(u\x\{4\}\|u{\x\+}\|x\x\x\|x{\x\+}\|.\)" extend
 
 " Numbers
 syntax match dartNumber         "\<\d\+\(\.\d\+\)\=\>"
