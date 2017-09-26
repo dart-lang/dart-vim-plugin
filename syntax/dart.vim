@@ -33,7 +33,7 @@ syntax keyword dartExceptions     throw rethrow try on catch finally
 syntax keyword dartAssert         assert
 syntax keyword dartClassDecl      extends with implements
 syntax keyword dartBranch         break continue nextgroup=dartUserLabelRef skipwhite
-syntax keyword dartKeyword        get set operator call external async await yield sync
+syntax keyword dartKeyword        get set operator call external async await yield sync native
 syntax match   dartUserLabelRef   "\k\+" contained
 
 syntax region  dartLabelRegion   transparent matchgroup=dartLabel start="\<case\>" matchgroup=NONE end=":"
