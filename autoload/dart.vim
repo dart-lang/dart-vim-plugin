@@ -149,3 +149,12 @@ function! s:DotPackagesFile() abort
   endwhile
   return [v:false, '']
 endfunction
+
+" Prevent writes to files in the pub cache.
+function! dart#setModifiable() abort
+  let full_path = expand('%:p')
+  if full_path =~# '.pub-cache' ||
+      \ full_path =~# 'Pub\Cache'
+    setlocal nomodifiable
+  endif
+endfunction

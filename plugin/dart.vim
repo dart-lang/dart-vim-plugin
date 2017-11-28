@@ -12,6 +12,7 @@ augroup dart-vim-plugin
   autocmd FileType dart command! -buffer -nargs=? DartFmt       call dart#fmt(<q-args>)
   autocmd FileType dart command! -buffer -nargs=? Dart2Js       call dart#tojs(<q-args>)
   autocmd FileType dart command! -buffer -nargs=? DartAnalyzer  call dart#analyzer(<q-args>)
+  autocmd Filetype dart call dart#setModifiable()
 augroup END
 
 let &cpo = s:save_cpo
