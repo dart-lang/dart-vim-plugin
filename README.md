@@ -42,6 +42,8 @@ Plug 'dart-lang/dart-vim-plugin'
 call plug#end()
 ```
 
+Then invoke `:PlugInstall` to install the plugin.
+
 ### [pathogen][]
 
 [pathogen]:https://github.com/tpope/vim-pathogen
