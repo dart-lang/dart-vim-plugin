@@ -3,10 +3,16 @@
 dart-vim-plugin provides filetype detection, syntax highlighting, and
 indentation for [Dart][] code in Vim.
 
+Looking for auto-complete, diagnostics as you type, jump to definition and other
+intellisense features? Try [dart_language_server][] and a vim plugin for the
+[Language Server Protocol](http://langserver.org/) such as [vim-lsc][].
+
 Looking for an IDE experience? See the [Dart Tools][] page.
 
 [Dart]: http://www.dartlang.org/
 [Dart tools]: http://www.dartlang.org/tools/
+[dart_language_server]: https://pub.dartlang.org/packages/dart_language_server
+[vim-lsc]: https://github.com/natebosch/vim-lsc
 
 ## Commands
 
