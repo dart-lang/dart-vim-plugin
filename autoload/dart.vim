@@ -128,12 +128,12 @@ function! s:PackageMap() abort
 endfunction
 
 " Toggle whether dartfmt is run on save or not.
-function! dart#ToggleFmtAutoSave() abort
-  if get(g:, "dart_fmt_autosave", 1)
-    let g:dart_fmt_autosave = 0
+function! dart#ToggleFormatOnSave() abort
+  if get(g:, "dart_format_on_save", 1)
+    let g:dart_format_on_save = 0
     return
   endif
-  let g:dart_fmt_autosave = 1
+  let g:dart_format_on_save = 1
 endfunction
 
 " Finds a file name '.packages' in the cwd, or in any directory above the open

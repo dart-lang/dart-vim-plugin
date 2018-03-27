@@ -7,18 +7,18 @@ let g:loaded_dart = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! s:fmt_autosave()
+function! s:FormatOnSave()
   " Dart code formatting on save
-  if get(g:, "dart_fmt_autosave", 1)
+  if get(g:, "dart_format_on_save", 1)
     call dart#fmt("")
   endif
 endfunction
 
 augroup dart-vim-plugin
   autocmd!
-  autocmd BufWritePre *.dart call s:fmt_autosave()
+  autocmd BufWritePre *.dart call s:FormatOnSave()
   autocmd FileType dart command! -buffer -nargs=? DartFmt       call dart#fmt(<q-args>)
-  autocmd FileType dart command! DartFmtToggleAutoSave call dart#ToggleFmtAutoSave()
+  autocmd FileType dart command! DartToggleFormatOnSave         call dart#ToggleFormatOnSave()
   autocmd FileType dart command! -buffer -nargs=? Dart2Js       call dart#tojs(<q-args>)
   autocmd FileType dart command! -buffer -nargs=? DartAnalyzer  call dart#analyzer(<q-args>)
   autocmd Filetype dart call dart#setModifiable()
