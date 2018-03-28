@@ -129,7 +129,7 @@ endfunction
 
 " Toggle whether dartfmt is run on save or not.
 function! dart#ToggleFormatOnSave() abort
-  if get(g:, "dart_format_on_save", 1)
+  if get(g:, "dart_format_on_save", 0)
     let g:dart_format_on_save = 0
     return
   endif
