@@ -87,3 +87,16 @@ dart_corelib_highlight=v:false` (default true).
 Enable Dart style guide syntax (like 2-space indentation) with `let dart_style_guide = 2`
 
 Enable DartFmt execution on buffer save with `let dart_format_on_save = 1`
+
+## FAQ
+
+### Why doesn't the plugin does not indent identically to `dartfmt`?
+
+The indentation capabilities within vim are limited and it's not easy to fully
+express the indentation behavior of `dartfmt`. The major area where this plugin
+differs from `dartfmt` is indentation of function arguments when using a
+trailing comma in the argument list. When using a trailing comma (as is common
+in flutter widget code) `dartfmt` uses 2 space indent for argument parameters.
+In all other indentation following an open parenthesis (argument lists without a
+trailing comma, multi-line assert statements, etc) `dartmft` uses 4 space
+indent. This plugin uses 4 space indent to match the most cases.
