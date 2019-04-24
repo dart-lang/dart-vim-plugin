@@ -19,7 +19,8 @@ endfunction
 function! dart#fmt(q_args) abort
   if executable('dartfmt')
     let buffer_content = join(getline(1, '$'), "\n")
-    let joined_lines = system(printf('dartfmt %s', a:q_args), buffer_content)
+    let args = '--stdin-name '.expand('%').' '.a:q_args
+    let joined_lines = system(printf('dartfmt %s', args), buffer_content)
     if buffer_content ==# joined_lines[:-2] | return | endif
     if 0 == v:shell_error
       let win_view = winsaveview()
@@ -31,9 +32,7 @@ function! dart#fmt(q_args) abort
       call winrestview(win_view)
     else
       let errors = split(joined_lines, "\n")[2:]
-      let file_path = expand('%')
-      call map(errors, 'file_path.":".v:val')
-      let error_format = '%A%f:line %l\, column %c of stdin: %m,%C%.%#'
+      let error_format = '%Aline %l\, column %c of %f: %m,%C%.%#'
       call s:cexpr(error_format, join(errors, "\n"))
     endif
   else
