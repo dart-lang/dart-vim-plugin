@@ -105,15 +105,16 @@ indent. This plugin uses 4 space indent to match the most cases.
 ### How do I configure an LSP plugin to start the analysis server?
 
 The Dart SDK comes with an analysis server that can be run in LSP mode. The
-server must be run from a snapshot which is shipped in the SDK. The full
-command, assuming the `bin` directory of the SDK is at `$DART_SDK` is
+server ships with the SDK. Assuming the `bin` directory of the SDK is at
+`$DART_SDK` the full command to run the analysis server in LSP mode is
 `$DART_SDK/dart $DART_SDK/snapshots/analysis_server.dart.snapshot --lsp`. If
-you'll be opening files outside of the `rootUri` for the project you may want to
-pass `onlyAnalyzeProjetsWithOpenFiles: true` in the `initializationOptions`. See
-the documentation for your LSP client for how to configure initialization
-options. If you are using the [vim-lsc][] plugin there is an additional plugin
-which can configure everything for you at [vim-lsc-dart][]. A minimal config for
-a good default experience using [vim-plug][] would look like:
+you'll be opening files outside of the `rootUri` sent by your LSP client
+(usually `cwd`) you may want to pass `onlyAnalyzeProjetsWithOpenFiles: true` in
+the `initializationOptions`. See the documentation for your LSP client for how
+to configure initialization options. If you are using the [vim-lsc][] plugin
+there is an additional plugin which can configure everything for you at
+[vim-lsc-dart][]. A minimal config for a good default experience using
+[vim-plug][] would look like:
 
 ```vimscript
 call plug#begin()
