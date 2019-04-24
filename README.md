@@ -4,14 +4,14 @@ dart-vim-plugin provides filetype detection, syntax highlighting, and
 indentation for [Dart][] code in Vim.
 
 Looking for auto-complete, diagnostics as you type, jump to definition and other
-intellisense features? Try [dart_language_server][] and a vim plugin for the
-[Language Server Protocol](http://langserver.org/) such as [vim-lsc][].
+intellisense features? Try a vim plugin for the
+[Language Server Protocol](http://langserver.org/) such as [vim-lsc][]
+configured to start the Dart analysis server with the `--lsp` flag.
 
 Looking for an IDE experience? See the [Dart Tools][] page.
 
 [Dart]: http://www.dartlang.org/
 [Dart tools]: http://www.dartlang.org/tools/
-[dart_language_server]: https://pub.dartlang.org/packages/dart_language_server
 [vim-lsc]: https://github.com/natebosch/vim-lsc
 
 ## Commands
@@ -100,3 +100,30 @@ in flutter widget code) `dartfmt` uses 2 space indent for argument parameters.
 In all other indentation following an open parenthesis (argument lists without a
 trailing comma, multi-line assert statements, etc) `dartmft` uses 4 space
 indent. This plugin uses 4 space indent to match the most cases.
+
+
+### How do I configure an LSP plugin to start the analysis server?
+
+The Dart SDK comes with an analysis server that can be run in LSP mode. The
+server ships with the SDK. Assuming the `bin` directory of the SDK is at
+`$DART_SDK` the full command to run the analysis server in LSP mode is
+`$DART_SDK/dart $DART_SDK/snapshots/analysis_server.dart.snapshot --lsp`. If
+you'll be opening files outside of the `rootUri` sent by your LSP client
+(usually `cwd`) you may want to pass `onlyAnalyzeProjetsWithOpenFiles: true` in
+the `initializationOptions`. See the documentation for your LSP client for how
+to configure initialization options. If you are using the [vim-lsc][] plugin
+there is an additional plugin which can configure everything for you at
+[vim-lsc-dart][]. A minimal config for a good default experience using
+[vim-plug][] would look like:
+
+```vimscript
+call plug#begin()
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'natebosch/vim-lsc'
+Plug 'natebosch/vim-lsc-dart'
+call plug#end()
+
+let g:lsc_auto_map = v:true
+```
+
+[vim-lsc-dart]: https://github.com/natebosch/vim-lsc-dart
