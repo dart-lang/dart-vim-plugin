@@ -6,7 +6,7 @@ indentation for [Dart][] code in Vim.
 Looking for auto-complete, diagnostics as you type, jump to definition and other
 intellisense features? Try a vim plugin for the
 [Language Server Protocol](http://langserver.org/) such as [vim-lsc][]
-configured to star the Dart analysis server with the `--lsp` flag.
+configured to start the Dart analysis server with the `--lsp` flag.
 
 Looking for an IDE experience? See the [Dart Tools][] page.
 
@@ -109,10 +109,11 @@ server must be run from a snapshot which is shipped in the SDK. The full
 command, assuming the `bin` directory of the SDK is at `$DART_SDK` is
 `$DART_SDK/dart $DART_SDK/snapshots/analysis_server.dart.snapshot --lsp`. If
 you'll be opening files outside of the `rootUri` for the project you may want to
-pass `onlyAnalyzeProjetsWithOpenFiles: true` in the `initializeOptions`. If you
-are using the [vim-lsc][] plugin there is an additional plugin which can configure
-everything for you at [vim-lsc-dart][]. A minimal config for a good default
-experience using [vim-plug][] would look like:
+pass `onlyAnalyzeProjetsWithOpenFiles: true` in the `initializationOptions`. See
+the documentation for your LSP client for how to configure initialization
+options. If you are using the [vim-lsc][] plugin there is an additional plugin
+which can configure everything for you at [vim-lsc-dart][]. A minimal config for
+a good default experience using [vim-plug][] would look like:
 
 ```vimscript
 call plug#begin()
