@@ -33,7 +33,10 @@ function! dart#fmt(q_args) abort
     let buffer_content = join(getline(1, '$'), "\n")
     let args = '--stdin-name '.expand('%').' '.a:q_args
     let joined_lines = system(printf('dartfmt %s', args), buffer_content)
-    if buffer_content ==# joined_lines[:-2] | return | endif
+    if buffer_content ==# joined_lines[:-2]
+      call s:clearQfList('dartfmt')
+      return
+    endif
     if 0 == v:shell_error
       let win_view = winsaveview()
       let lines = split(joined_lines, "\n")
