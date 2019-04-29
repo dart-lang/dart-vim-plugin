@@ -5,16 +5,13 @@ function! s:error(text) abort
   echohl None
 endfunction
 
-function! s:cexpr(errorformat, joined_lines, reason) abort
-  let temp_errorfomat = &errorformat
-  try
-    let &errorformat = a:errorformat
-    cexpr a:joined_lines
-    call setqflist([], 'a', {'context': {'reason': a:reason}})
-    copen
-  finally
-    let &errorformat = temp_errorfomat
-  endtry
+function! s:cexpr(errorformat, lines, reason) abort
+  call setqflist([], ' ', {
+      \ 'lines': a:lines,
+      \ 'efm': a:errorformat,
+      \ 'context': {'reason': a:reason},
+      \})
+  copen
 endfunction
 
 " If the quickfix list has a context matching [reason], clear and close it.
@@ -49,7 +46,7 @@ function! dart#fmt(q_args) abort
     else
       let errors = split(joined_lines, "\n")[2:]
       let error_format = '%Aline %l\, column %c of %f: %m,%C%.%#'
-      call s:cexpr(error_format, join(errors, "\n"), 'dartfmt')
+      call s:cexpr(error_format, errors, 'dartfmt')
     endif
   else
     call s:error('cannot execute binary file: dartfmt')
@@ -60,8 +57,9 @@ function! dart#analyzer(q_args) abort
   if executable('dartanalyzer')
     let path = expand('%:p:gs:\:/:')
     if filereadable(path)
-      let joined_lines = system(printf('dartanalyzer %s %s', a:q_args, shellescape(path)))
-      call s:cexpr('%m (%f\, line %l\, col %c)', joined_lines, 'dartanalyzer')
+      let command = printf('dartanalyzer %s %s', a:q_args, shellescape(path))
+      let lines = systemlist(command)
+      call s:cexpr('%m (%f\, line %l\, col %c)', lines, 'dartanalyzer')
     else
       call s:error(printf('cannot read a file: "%s"', path))
     endif
@@ -74,8 +72,9 @@ function! dart#tojs(q_args) abort
   if executable('dart2js')
     let path = expand('%:p:gs:\:/:')
     if filereadable(path)
-      let joined_lines = system(printf('dart2js %s %s', a:q_args, shellescape(path)))
-      call s:cexpr('%m (%f\, line %l\, col %c)', joined_lines, 'dart2js')
+      let command = printf('dart2js %s %s', a:q_args, shellescape(path))
+      let lines = systemlist(command)
+      call s:cexpr('%m (%f\, line %l\, col %c)', lines, 'dart2js')
     else
       call s:error(printf('cannot read a file: "%s"', path))
     endif
