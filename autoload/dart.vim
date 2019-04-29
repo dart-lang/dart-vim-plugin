@@ -5,15 +5,27 @@ function! s:error(text) abort
   echohl None
 endfunction
 
-function! s:cexpr(errorformat, joined_lines) abort
+function! s:cexpr(errorformat, joined_lines, reason) abort
   let temp_errorfomat = &errorformat
   try
     let &errorformat = a:errorformat
     cexpr a:joined_lines
+    call setqflist([], 'a', {'context': {'reason': a:reason}})
     copen
   finally
     let &errorformat = temp_errorfomat
   endtry
+endfunction
+
+" If the quickfix list has a context matching [reason], clear and close it.
+function! s:clearQfList(reason) abort
+  let context = getqflist({'context': 1}).context
+  if type(context) == v:t_dict &&
+      \ has_key(context, 'reason') &&
+      \ context.reason == a:reason
+    call setqflist([], 'r')
+    cclose
+  endif
 endfunction
 
 function! dart#fmt(q_args) abort
@@ -30,10 +42,11 @@ function! dart#fmt(q_args) abort
         silent keepjumps execute string(len(lines)+1).',$ delete'
       endif
       call winrestview(win_view)
+      call s:clearQfList('dartfmt')
     else
       let errors = split(joined_lines, "\n")[2:]
       let error_format = '%Aline %l\, column %c of %f: %m,%C%.%#'
-      call s:cexpr(error_format, join(errors, "\n"))
+      call s:cexpr(error_format, join(errors, "\n"), 'dartfmt')
     endif
   else
     call s:error('cannot execute binary file: dartfmt')
@@ -45,7 +58,7 @@ function! dart#analyzer(q_args) abort
     let path = expand('%:p:gs:\:/:')
     if filereadable(path)
       let joined_lines = system(printf('dartanalyzer %s %s', a:q_args, shellescape(path)))
-      call s:cexpr('%m (%f\, line %l\, col %c)', joined_lines)
+      call s:cexpr('%m (%f\, line %l\, col %c)', joined_lines, 'dartanalyzer')
     else
       call s:error(printf('cannot read a file: "%s"', path))
     endif
@@ -59,7 +72,7 @@ function! dart#tojs(q_args) abort
     let path = expand('%:p:gs:\:/:')
     if filereadable(path)
       let joined_lines = system(printf('dart2js %s %s', a:q_args, shellescape(path)))
-      call s:cexpr('%m (%f\, line %l\, col %c)', joined_lines)
+      call s:cexpr('%m (%f\, line %l\, col %c)', joined_lines, 'dart2js')
     else
       call s:error(printf('cannot read a file: "%s"', path))
     endif
