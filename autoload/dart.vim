@@ -16,7 +16,7 @@ endfunction
 
 " If the quickfix list has a context matching [reason], clear and close it.
 function! s:clearQfList(reason) abort
-  let context = getqflist({'context': 1}).context
+  let context = get(getqflist({'context': 1}), 'context', {})
   if type(context) == v:t_dict &&
       \ has_key(context, 'reason') &&
       \ context.reason == a:reason
