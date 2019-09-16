@@ -84,6 +84,9 @@ dart_html_in_string=v:true` (default false).
 Disable highlighting of core library classes with `let
 dart_corelib_highlight=v:false` (default true).
 
+Enable highlighting of user defined types with `let
+dart_highlight_types=v:true` (default false).
+
 Enable Dart style guide syntax (like 2-space indentation) with `let dart_style_guide = 2`
 
 Enable DartFmt execution on buffer save with `let dart_format_on_save = 1`
