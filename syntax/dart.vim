@@ -53,7 +53,7 @@ syntax match dartNumber         "\<\d\+\(\.\d\+\)\=\>"
 
 " User Types
 if !exists('dart_highlight_types') || dart_highlight_types
-    syntax match dartTypeName   "\<[A-Z]\w*\>\|\<_[A-Z]\w*\>"
+  syntax match dartTypeName   "\<[A-Z]\w*\>\|\<_[A-Z]\w*\>"
 endif
 
 " Core libraries
