@@ -27,16 +27,19 @@ endfunction
 
 function! dart#fmt(q_args) abort
   if executable('dartfmt')
-    let buffer_content = join(getline(1, '$'), "\n")
+    let buffer_content = getline(1, '$')
     let args = '--stdin-name '.expand('%').' '.a:q_args
-    let joined_lines = system(printf('dartfmt %s', args), buffer_content)
-    if buffer_content ==# joined_lines[:-2]
+    let lines = systemlist(printf('dartfmt %s', args),
+        \ join(buffer_content, "\n"))
+    if lines[-1] ==# 'Isolate creation failed'
+      let lines = lines[:-2]
+    endif
+    if buffer_content == lines
       call s:clearQfList('dartfmt')
       return
     endif
     if 0 == v:shell_error
       let win_view = winsaveview()
-      let lines = split(joined_lines, "\n")
       silent keepjumps call setline(1, lines)
       if line('$') > len(lines)
         silent keepjumps execute string(len(lines)+1).',$ delete'
@@ -44,7 +47,7 @@ function! dart#fmt(q_args) abort
       call winrestview(win_view)
       call s:clearQfList('dartfmt')
     else
-      let errors = split(joined_lines, "\n")[2:]
+      let errors = lines[2:]
       let error_format = '%Aline %l\, column %c of %f: %m,%C%.%#'
       call s:cexpr(error_format, errors, 'dartfmt')
     endif
