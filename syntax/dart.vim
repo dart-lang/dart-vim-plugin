@@ -51,8 +51,8 @@ syntax match   dartMetadata      "@\([_$a-zA-Z][_$a-zA-Z0-9]*\.\)*[_$a-zA-Z][_$a
 " Numbers
 syntax match dartNumber         "\<\d\+\(\.\d\+\)\=\>"
 
-" Types
-if exists('dart_highlight_types') && dart_highlight_types
+" User Types
+if !exists('dart_highlight_types') || dart_highlight_types
     syntax match dartTypeName   "\<[A-Z]\w*\>\|\<_[A-Z]\w*\>"
 endif
 
