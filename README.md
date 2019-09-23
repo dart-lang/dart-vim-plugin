@@ -16,16 +16,6 @@ Looking for an IDE experience? See the [Dart Tools][] page.
 
 ## Commands
 
-You can use following vim commands:
-
-### :Dart2Js
-
-![](https://raw.github.com/dart-lang/dart-vim-plugin/master/Dart2Js.gif)
-
-### :DartAnalyzer
-
-![](https://raw.github.com/dart-lang/dart-vim-plugin/master/DartAnalyzer.gif)
-
 ### :DartFmt
 
 ![](https://raw.github.com/dart-lang/dart-vim-plugin/master/DartFmt.gif)

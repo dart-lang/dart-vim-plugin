@@ -67,33 +67,15 @@ function! s:FindDartFmt() abort
 endfunction
 
 function! dart#analyzer(q_args) abort
-  if executable('dartanalyzer')
-    let path = expand('%:p:gs:\:/:')
-    if filereadable(path)
-      let command = printf('dartanalyzer %s %s', a:q_args, shellescape(path))
-      let lines = systemlist(command)
-      call s:cexpr('%m (%f\, line %l\, col %c)', lines, 'dartanalyzer')
-    else
-      call s:error(printf('cannot read a file: "%s"', path))
-    endif
-  else
-    call s:error('cannot execute binary file: dartanalyzer')
-  endif
+  call s:error('DartAnalyzer support has been removed. '.
+      \'If this broke your workflow please comment on '.
+      \'https://github.com/dart-lang/dart-vim-plugin/issues/89')
 endfunction
 
 function! dart#tojs(q_args) abort
-  if executable('dart2js')
-    let path = expand('%:p:gs:\:/:')
-    if filereadable(path)
-      let command = printf('dart2js %s %s', a:q_args, shellescape(path))
-      let lines = systemlist(command)
-      call s:cexpr('%m (%f\, line %l\, col %c)', lines, 'dart2js')
-    else
-      call s:error(printf('cannot read a file: "%s"', path))
-    endif
-  else
-    call s:error('cannot execute binary file: dartanalyzer')
-  endif
+  call s:error('Dart2JS support has been removed. '.
+      \'If this broke your workflow please comment on '.
+      \'https://github.com/dart-lang/dart-vim-plugin/issues/89')
 endfunction
 
 " Finds the path to `uri`.
