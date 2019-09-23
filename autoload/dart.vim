@@ -31,6 +31,8 @@ function! dart#fmt(q_args) abort
     let args = '--stdin-name '.expand('%').' '.a:q_args
     let lines = systemlist(printf('dartfmt %s', args),
         \ join(buffer_content, "\n"))
+    " TODO(https://github.com/dart-lang/sdk/issues/38507) - Remove once the
+    " tool no longer emits this line on SDK upgrades.
     if lines[-1] ==# 'Isolate creation failed'
       let lines = lines[:-2]
     endif
