@@ -26,36 +26,44 @@ function! s:clearQfList(reason) abort
 endfunction
 
 function! dart#fmt(q_args) abort
-  if executable('dartfmt')
-    let buffer_content = getline(1, '$')
-    let args = '--stdin-name '.expand('%').' '.a:q_args
-    let lines = systemlist(printf('dartfmt %s', args),
-        \ join(buffer_content, "\n"))
-    " TODO(https://github.com/dart-lang/sdk/issues/38507) - Remove once the
-    " tool no longer emits this line on SDK upgrades.
-    if lines[-1] ==# 'Isolate creation failed'
-      let lines = lines[:-2]
-    endif
-    if buffer_content == lines
-      call s:clearQfList('dartfmt')
-      return
-    endif
-    if 0 == v:shell_error
-      let win_view = winsaveview()
-      silent keepjumps call setline(1, lines)
-      if line('$') > len(lines)
-        silent keepjumps execute string(len(lines)+1).',$ delete'
-      endif
-      call winrestview(win_view)
-      call s:clearQfList('dartfmt')
-    else
-      let errors = lines[2:]
-      let error_format = '%Aline %l\, column %c of %f: %m,%C%.%#'
-      call s:cexpr(error_format, errors, 'dartfmt')
-    endif
-  else
-    call s:error('cannot execute binary file: dartfmt')
+  let cmd = s:FindDartFmt()
+  if type(cmd) != type('') | return | endif
+  let buffer_content = getline(1, '$')
+  let args = '--stdin-name '.expand('%').' '.a:q_args
+  let lines = systemlist(printf('%s %s', cmd, args), join(buffer_content, "\n"))
+  " TODO(https://github.com/dart-lang/sdk/issues/38507) - Remove once the
+  " tool no longer emits this line on SDK upgrades.
+  if lines[-1] ==# 'Isolate creation failed'
+    let lines = lines[:-2]
   endif
+  if buffer_content == lines
+    call s:clearQfList('dartfmt')
+    return
+  endif
+  if 0 == v:shell_error
+    let win_view = winsaveview()
+    silent keepjumps call setline(1, lines)
+    if line('$') > len(lines)
+      silent keepjumps execute string(len(lines)+1).',$ delete'
+    endif
+    call winrestview(win_view)
+    call s:clearQfList('dartfmt')
+  else
+    let errors = lines[2:]
+    let error_format = '%Aline %l\, column %c of %f: %m,%C%.%#'
+    call s:cexpr(error_format, errors, 'dartfmt')
+  endif
+endfunction
+
+function! s:FindDartFmt() abort
+  if executable('dartfmt') | return 'dartfmt' | endif
+  if executable('flutter')
+    let l:flutter_cmd = resolve(exepath('flutter'))
+    let l:bin = fnamemodify(l:flutter_cmd, ':h')
+    let l:dartfmt = l:bin.'/cache/dart-sdk/bin/dartfmt'
+    if executable(l:dartfmt) | return l:dartfmt | endif
+  endif
+  call s:error('Cannot find a `dartfmt` command')
 endfunction
 
 function! dart#analyzer(q_args) abort
