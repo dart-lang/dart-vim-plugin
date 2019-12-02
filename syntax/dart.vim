@@ -56,6 +56,9 @@ if !exists('dart_highlight_types') || dart_highlight_types
   syntax match dartTypeName   "\<_\?\u[[:alnum:]_\$]*\>"
 endif
 
+" Function highlighting
+syntax match  dartFunction      "\zs\<\(_\?\l[[:alnum:]_\$]*\)\>*\s*\ze("
+
 " Core libraries
 if !exists('dart_corelib_highlight') || dart_corelib_highlight
   syntax keyword dartCoreClasses BidirectionalIterator Comparable DateTime
@@ -132,6 +135,7 @@ highlight default link dartCoreClasses     Type
 highlight default link dartCoreTypedefs    Typedef
 highlight default link dartCoreExceptions  Exception
 highlight default link dartMetadata        PreProc
+highlight default link dartFunction        Function
 
 let b:current_syntax = "dart"
 let b:spell_options = "contained"
