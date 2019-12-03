@@ -10,8 +10,8 @@ configured to start the Dart analysis server with the `--lsp` flag.
 
 Looking for an IDE experience? See the [Dart Tools][] page.
 
-[Dart]: http://www.dartlang.org/
-[Dart tools]: http://www.dartlang.org/tools/
+[Dart]: https://dart.dev/
+[Dart tools]: https://dart.dev/tools
 [vim-lsc]: https://github.com/natebosch/vim-lsc
 
 ## Commands
@@ -28,7 +28,7 @@ common choices, be sure to read the docs for each option.
 
 ### [vim-plug][]
 
-[vim-plug]:https://github.com/junegunn/vim-plug
+[vim-plug]: https://github.com/junegunn/vim-plug
 
 ```vimscript
 call plug#begin()
@@ -42,7 +42,7 @@ Then invoke `:PlugInstall` to install the plugin.
 
 ### [pathogen][]
 
-[pathogen]:https://github.com/tpope/vim-pathogen
+[pathogen]: https://github.com/tpope/vim-pathogen
 
 Clone the repository into your pathogen directory.
 
@@ -55,7 +55,7 @@ Ensure your `.vimrc` contains the line `execute pathogen#infect()`
 
 ### [vundle][]
 
-[vundle]:https://github.com/VundleVim/Vundle.vim
+[vundle]: https://github.com/VundleVim/Vundle.vim
 
 ```vimscript
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -83,7 +83,7 @@ Enable DartFmt execution on buffer save with `let dart_format_on_save = 1`
 
 ## FAQ
 
-### Why doesn't the plugin does not indent identically to `dartfmt`?
+### Why doesn't the plugin indent identically to `dartfmt`?
 
 The indentation capabilities within vim are limited and it's not easy to fully
 express the indentation behavior of `dartfmt`. The major area where this plugin
