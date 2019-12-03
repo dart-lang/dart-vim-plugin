@@ -51,4 +51,31 @@ Set to any value (set to `2` by convention) to set tab and width behavior to
 match the Dart style guide - spaces only with an indent of 2. Also sets
 `formatoptions += t` to auto wrap text.
 
+SYNTAX HIGHLIGHTING                              *dart-syntax*
+
+This plugin uses narrow highlight groups to allow selectively disabling the
+syntax highlights. Link any of the following groups to the `Normal` highlight
+group to disable them:
+
+`dartSdkException`: Capitalized exception or error classes defined in the SDK.
+
+`dartCoreType`: `void`, `var`, `dynamic`
+
+`dartSdkClass`: Capitalized classes defined in the SDK, along with `bool`,
+`int`, `double`, and `num`.
+
+`dartUserType`: Any capitalized identifier.
+
+`dartType`: Combines `dartCoreType`, `dartSdkClass`, and `dartUserType`.
+
+`dartSdkTypedef`: SDK defined `typdef`s.
+
+`dartFunction`: Any lower cased identifier preceding an open parenthesis.
+
+For example, to remove the highlighting for type and function names:
+>
+ highlight link dartType Normal
+ highlight link dartFunction Normal
+<
+
  vim:tw=78:sw=4:ts=8:ft=help:norl:
