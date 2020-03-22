@@ -3,14 +3,14 @@
 " for details. All rights reserved. Use of this source code is governed by a
 " BSD-style license that can be found in the LICENSE file.
 
-if !exists("g:main_syntax")
-  if version < 600
+if !exists('g:main_syntax')
+  if v:version < 600
     syntax clear
-  elseif exists("b:current_syntax")
+  elseif exists('b:current_syntax')
     finish
   endif
   let g:main_syntax = 'dart'
-  syntax region dartFold start="{" end="}" transparent fold
+  syntax region dartFold start='{' end='}' transparent fold
 endif
 
 " Ensure long multiline strings are highlighted.
@@ -134,8 +134,8 @@ highlight default link dartUserType        dartType
 highlight default link dartType            Type
 highlight default link dartFunction        Function
 
-let b:current_syntax = "dart"
-let b:spell_options = "contained"
+let b:current_syntax = 'dart'
+let b:spell_options = 'contained'
 
 if g:main_syntax is# 'dart'
   unlet g:main_syntax

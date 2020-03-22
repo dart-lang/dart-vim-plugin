@@ -9,8 +9,8 @@ set cpo&vim
 
 function! s:FormatOnSave()
   " Dart code formatting on save
-  if get(g:, "dart_format_on_save", 0)
-    call dart#fmt("")
+  if get(g:, 'dart_format_on_save', 0)
+    call dart#fmt('')
   endif
 endfunction
 
