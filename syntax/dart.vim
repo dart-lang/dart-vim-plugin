@@ -40,9 +40,9 @@ syntax match   dartUserLabelRef   "\k\+" contained
 syntax region  dartLabelRegion   transparent matchgroup=dartLabel start="\<case\>" matchgroup=NONE end=":"
 syntax keyword dartLabel         default
 
-syntax match   dartLibrary       "^\(import\|export\)\>" nextgroup=dartUri skipwhite
-syntax region  dartUri           contained start=+r\=\z(["']\)+ end=+\z1+ nextgroup=dartCombinators skipwhite
-syntax region  dartCombinators   contained start="" end=";" contains=dartCombinator
+syntax match   dartLibrary       "^\(import\|export\)\>" nextgroup=dartUri skipwhite skipnl
+syntax region  dartUri           contained start=+r\=\z(["']\)+ end=+\z1+ nextgroup=dartCombinators skipwhite skipnl
+syntax region  dartCombinators   contained start="" end=";" contains=dartCombinator,dartComment,dartLineComment
 syntax keyword dartCombinator    contained show hide deferred as
 syntax match   dartLibrary       "^\(library\|part of\|part\)\>"
 
