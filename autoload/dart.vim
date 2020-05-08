@@ -56,11 +56,11 @@ function! dart#fmt(q_args) abort
 endfunction
 
 function! s:FindDartFmt() abort
-  if executable('dartfmt') | return 'dartfmt' | endif
+  if executable('dartfmt') | return 'dartfmt'.g:dartfmt_options | endif
   if executable('flutter')
     let l:flutter_cmd = resolve(exepath('flutter'))
     let l:bin = fnamemodify(l:flutter_cmd, ':h')
-    let l:dartfmt = l:bin.'/cache/dart-sdk/bin/dartfmt'
+    let l:dartfmt = l:bin.'/cache/dart-sdk/bin/dartfmt'.g:dartfmt_options
     if executable(l:dartfmt) | return l:dartfmt | endif
   endif
   call s:error('Cannot find a `dartfmt` command')
