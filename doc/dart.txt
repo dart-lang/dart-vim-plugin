@@ -52,7 +52,7 @@ match the Dart style guide - spaces only with an indent of 2. Also sets
 `formatoptions += t` to auto wrap text.
 
 Configure DartFmt options with `let g:dartfmt_options`, for example, enable
-auto syntax fixes with `let g:dartfmt_options = "--fix"`
+auto syntax fixes with `let g:dartfmt_options = ['--fix']`
 (discover formatter options with `dartfmt -h`)
 
 
