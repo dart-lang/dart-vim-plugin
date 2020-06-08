@@ -51,6 +51,11 @@ Set to any value (set to `2` by convention) to set tab and width behavior to
 match the Dart style guide - spaces only with an indent of 2. Also sets
 `formatoptions += t` to auto wrap text.
 
+Configure DartFmt options with `let g:dartfmt_options`, for example, enable
+auto syntax fixes with `let g:dartfmt_options = "--fix"`
+(discover formatter options with `dartfmt -h`)
+
+
 SYNTAX HIGHLIGHTING                              *dart-syntax*
 
 This plugin uses narrow highlight groups to allow selectively disabling the

@@ -79,10 +79,8 @@ Enable Dart style guide syntax (like 2-space indentation) with
 
 Enable DartFmt execution on buffer save with `let g:dart_format_on_save = 1`
 
-Configure DartFmt Options with `let g:dartfmt_options`, for example, change
-line limit to 100 (default 80) and enable auto syntax fixes with
-`let g:dartfmt_options = "-l 100 --fix"`
-(see more options with `dartfmt -h`)
+Configure DartFmt options with `let g:dartfmt_options`
+(discover formatter options with `dartfmt -h`)
 
 ## FAQ
 
