@@ -65,7 +65,7 @@ function! s:FindDartFmt() abort
     let l:flutter_cmd = resolve(exepath('flutter'))
     let l:bin = fnamemodify(l:flutter_cmd, ':h')
     let l:dartfmt = l:bin.'/cache/dart-sdk/bin/dartfmt'
-    if executable(l:dartfmt) | return [l:dartfmt] | endif
+    if executable(l:dartfmt) | return l:dartfmt | endif
   endif
   call s:error('Cannot find a `dartfmt` command')
 endfunction
