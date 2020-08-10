@@ -92,7 +92,7 @@ differs from `dartfmt` is indentation of function arguments when using a
 trailing comma in the argument list. When using a trailing comma (as is common
 in flutter widget code) `dartfmt` uses 2 space indent for argument parameters.
 In all other indentation following an open parenthesis (argument lists without a
-trailing comma, multi-line assert statements, etc) `dartmft` uses 4 space
+trailing comma, multi-line assert statements, etc) `dartfmt` uses 4 space
 indent. This plugin uses 4 space indent to match the most cases.
 
 
