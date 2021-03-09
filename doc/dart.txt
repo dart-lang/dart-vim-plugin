@@ -28,7 +28,8 @@ format is successful replaces the current buffer content with the formatted
 result. If the format is unsuccessful errors are shown in the quickfix window.
 This command does not use the file content on disk so it is safe to run with
 unwritten changes.
-Passes arguments through to dartfmt.
+Options may be passed to `dartfmt` by setting |g:dartfmt_options| or passing
+arguments to the `:DartFmt` command.
 
                                                 *:DartAnalyzer*
 Runs dartanalyzer to analyze the current file. Takes the same arguments as the
@@ -51,6 +52,7 @@ Set to any value (set to `2` by convention) to set tab and width behavior to
 match the Dart style guide - spaces only with an indent of 2. Also sets
 `formatoptions += t` to auto wrap text.
 
+                                                *g:dartfmt_options*
 Configure DartFmt options with `let g:dartfmt_options`, for example, enable
 auto syntax fixes with `let g:dartfmt_options = ['--fix']`
 (discover formatter options with `dartfmt -h`)
