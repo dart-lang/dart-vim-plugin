@@ -26,10 +26,12 @@ function! s:clearQfList(reason) abort
 endfunction
 
 function! dart#fmt(...) abort
-  let l:dartfmt = s:FindDartFmt()
-  if type(l:dartfmt) != type('') | return | endif
+  if !executable('dart')
+    call s:error('Cannot find `dart` executable')
+    return
+  endif
   let buffer_content = getline(1, '$')
-  let l:cmd = [l:dartfmt, '--stdin-name', shellescape(expand('%'))]
+  let l:cmd = ['dart', 'format', '--stdin-name', shellescape(expand('%'))]
   if exists('g:dartfmt_options')
     call extend(l:cmd, g:dartfmt_options)
   endif
@@ -57,17 +59,6 @@ function! dart#fmt(...) abort
     let error_format = '%Aline %l\, column %c of %f: %m,%C%.%#'
     call s:cexpr(error_format, errors, 'dartfmt')
   endif
-endfunction
-
-function! s:FindDartFmt() abort
-  if executable('dartfmt') | return 'dartfmt' | endif
-  if executable('flutter')
-    let l:flutter_cmd = resolve(exepath('flutter'))
-    let l:bin = fnamemodify(l:flutter_cmd, ':h')
-    let l:dartfmt = l:bin.'/cache/dart-sdk/bin/dartfmt'
-    if executable(l:dartfmt) | return l:dartfmt | endif
-  endif
-  call s:error('Cannot find a `dartfmt` command')
 endfunction
 
 function! dart#analyzer(q_args) abort
