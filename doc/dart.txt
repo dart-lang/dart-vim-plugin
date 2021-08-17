@@ -23,12 +23,12 @@ argument.
 If there are any errors they will be shown in the quickfix window.
 
                                                 *:DartFmt*
-Runs dartfmt and passes the current buffer content through stdin. If the
+Runs `dart format` and passes the current buffer content through stdin. If the
 format is successful replaces the current buffer content with the formatted
 result. If the format is unsuccessful errors are shown in the quickfix window.
 This command does not use the file content on disk so it is safe to run with
 unwritten changes.
-Options may be passed to `dartfmt` by setting |g:dartfmt_options| or passing
+Options may be passed to `dart format` by setting |g:dartfmt_options| or passing
 arguments to the `:DartFmt` command.
 
                                                 *:DartAnalyzer*
@@ -55,7 +55,7 @@ match the Dart style guide - spaces only with an indent of 2. Also sets
                                                 *g:dartfmt_options*
 Configure DartFmt options with `let g:dartfmt_options`, for example, enable
 auto syntax fixes with `let g:dartfmt_options = ['--fix']`
-(discover formatter options with `dartfmt -h`)
+(discover formatter options with `dart format -h`)
 
 
 SYNTAX HIGHLIGHTING                              *dart-syntax*
