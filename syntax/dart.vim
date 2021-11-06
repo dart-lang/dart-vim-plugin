@@ -23,13 +23,13 @@ syntax keyword dartConditional    if else switch
 syntax keyword dartRepeat         do while for
 syntax keyword dartBoolean        true false
 syntax keyword dartConstant       null
-syntax keyword dartReserved       typedef extends final class void
+syntax keyword dartReserved       typedef extends final class void late
 syntax keyword dartTypedef        this super enum mixin extension
 syntax keyword dartOperator       new is as in
 syntax match   dartOperator       "+=\=\|-=\=\|*=\=\|/=\=\|%=\=\|\~/=\=\|<<=\=\|>>=\=\|[<>]=\=\|===\=\|\!==\=\|&=\=\|\^=\=\||=\=\|||\|&&\|\[\]=\=\|=>\|!\|\~\|?\|:"
 syntax keyword dartCoreType       var dynamic
 syntax keyword dartStatement      return
-syntax keyword dartStorageClass   static abstract const factory late
+syntax keyword dartStorageClass   static abstract const factory
 syntax keyword dartExceptions     throw rethrow try on catch finally
 syntax keyword dartAssert         assert
 syntax keyword dartClassDecl      with implements
