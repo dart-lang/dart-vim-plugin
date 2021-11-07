@@ -23,7 +23,7 @@ syntax keyword dartConditional    if else switch
 syntax keyword dartRepeat         do while for
 syntax keyword dartBoolean        true false
 syntax keyword dartConstant       null
-syntax keyword dartReserved       typedef extends final class void late implements extension mixin
+syntax keyword dartReserved       typedef extends final class void late implements extension mixin with
 syntax keyword dartTypedef        this super enum  
 syntax keyword dartOperator       new is as in
 syntax match   dartOperator       "+=\=\|-=\=\|*=\=\|/=\=\|%=\=\|\~/=\=\|<<=\=\|>>=\=\|[<>]=\=\|===\=\|\!==\=\|&=\=\|\^=\=\||=\=\|||\|&&\|\[\]=\=\|=>\|!\|\~\|?\|:"
@@ -32,7 +32,6 @@ syntax keyword dartStatement      return
 syntax keyword dartStorageClass   static abstract const factory
 syntax keyword dartExceptions     throw rethrow try on catch finally
 syntax keyword dartAssert         assert
-syntax keyword dartClassDecl      with 
 syntax keyword dartBranch         break continue nextgroup=dartUserLabelRef skipwhite
 syntax keyword dartKeyword        get set operator call external async await
     \ yield sync native covariant required
@@ -103,7 +102,6 @@ highlight default link dartRepeat          Repeat
 highlight default link dartExceptions      Exception
 highlight default link dartAssert          Statement
 highlight default link dartStorageClass    StorageClass
-highlight default link dartClassDecl       dartStorageClass
 highlight default link dartBoolean         Boolean
 highlight default link dartString          String
 highlight default link dartRawString       String
