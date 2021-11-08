@@ -128,7 +128,7 @@ highlight default link dartSdkTypedef      Typedef
 highlight default link dartTypedef         Typedef
 highlight default link dartSdkException    Exception
 highlight default link dartReserved        Keyword
-highlight default link dartSdkClass        dartType
+highlight default link dartSdkClass        Keyword
 highlight default link dartCoreType        dartType
 highlight default link dartUserType        dartType
 highlight default link dartType            Type
