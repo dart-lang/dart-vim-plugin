@@ -101,7 +101,7 @@ indent. This plugin uses 4 space indent to match the most cases.
 The Dart SDK comes with an analysis server that can be run in LSP mode. The
 server ships with the SDK. Assuming the `bin` directory of the SDK is at
 `$DART_SDK` the full command to run the analysis server in LSP mode is
-`$DART_SDK/dart $DART_SDK/snapshots/analysis_server.dart.snapshot --lsp`. If
+`$DART_SDK/dart language-server`. If
 you'll be opening files outside of the `rootUri` sent by your LSP client
 (usually `cwd`) you may want to pass `onlyAnalyzeProjectsWithOpenFiles: true` in
 the `initializationOptions`. See the documentation for your LSP client for how
