@@ -19,8 +19,6 @@ augroup dart-vim-plugin
   autocmd BufWritePre *.dart call s:FormatOnSave()
   autocmd FileType dart command! -buffer -nargs=? DartFmt       call dart#fmt(<f-args>)
   autocmd FileType dart command! -buffer DartToggleFormatOnSave call dart#ToggleFormatOnSave()
-  autocmd FileType dart command! -buffer -nargs=? Dart2Js       call dart#tojs(<q-args>)
-  autocmd FileType dart command! -buffer -nargs=? DartAnalyzer  call dart#analyzer(<q-args>)
   autocmd Filetype dart call dart#setModifiable()
 augroup END
 
