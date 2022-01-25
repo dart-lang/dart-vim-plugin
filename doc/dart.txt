@@ -16,12 +16,6 @@ COMMANDS                                        *dart-commands*
 
 These commands are available in buffers with the dart filetype.
 
-                                                *:Dart2Js*
-Runs dart2js to compile the current file. Takes the same arguments as the
-dart2js binary and always passes the path to the current file as the last
-argument.
-If there are any errors they will be shown in the quickfix window.
-
                                                 *:DartFmt*
 Runs `dart format` and passes the current buffer content through stdin. If the
 format is successful replaces the current buffer content with the formatted
@@ -31,11 +25,10 @@ unwritten changes.
 Options may be passed to `dart format` by setting |g:dartfmt_options| or passing
 arguments to the `:DartFmt` command.
 
-                                                *:DartAnalyzer*
-Runs dartanalyzer to analyze the current file. Takes the same arguments as the
-dartanalyzer binary and always passes the path to the current file as the last
-argument.
-If there are any errors they will be shown in the quickfix window.
+                                                *:DartToggleFormatOnSave*
+
+Toggles the |g:dart_format_on_save| configuration to enable or disable automatic
+formatting of Dart buffers when they are written.
 
 CONFIGURATION                                   *dart-configure*
 
@@ -47,6 +40,11 @@ Default `v:false`
 Set to `v:false` to disable highlighting of code Dart classes like `Map` or
 `List`.
 Default `v:true`
+
+                                                *g:dart_format_on_save*
+Set to `v:true` to enable automatically formatting Dart buffers when they are
+written.
+
                                                 *g:dart_style_guide*
 Set to any value (set to `2` by convention) to set tab and width behavior to
 match the Dart style guide - spaces only with an indent of 2. Also sets
