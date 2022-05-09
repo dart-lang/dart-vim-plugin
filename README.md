@@ -84,16 +84,17 @@ Configure DartFmt options with `let g:dartfmt_options`
 
 ## FAQ
 
-### Why doesn't the plugin indent identically to `dartfmt`?
+### Why doesn't the plugin indent identically to `dart format`?
 
 The indentation capabilities within vim are limited and it's not easy to fully
-express the indentation behavior of `dartfmt`. The major area where this plugin
-differs from `dartfmt` is indentation of function arguments when using a
-trailing comma in the argument list. When using a trailing comma (as is common
-in flutter widget code) `dartfmt` uses 2 space indent for argument parameters.
-In all other indentation following an open parenthesis (argument lists without a
-trailing comma, multi-line assert statements, etc) `dartfmt` uses 4 space
-indent. This plugin uses 4 space indent to match the most cases.
+express the indentation behavior of `dart format`. The major area where this
+plugin differs from `dart format` is indentation of function arguments when
+using a trailing comma in the argument list. When using a trailing comma (as is
+common in flutter widget code) `dart format` uses 2 space indent for argument
+parameters. In all other indentation following an open parenthesis (argument
+lists without a trailing comma, multi-line assert statements, etc) `dart format`
+uses 4 space indent. This plugin uses 4 space indent indent by default. To use 2
+space indent by default, `let g:dart_trailing_comma_indent = v:true`.
 
 
 ### How do I configure an LSP plugin to start the analysis server?
