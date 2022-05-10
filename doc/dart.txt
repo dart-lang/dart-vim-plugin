@@ -50,6 +50,11 @@ Set to any value (set to `2` by convention) to set tab and width behavior to
 match the Dart style guide - spaces only with an indent of 2. Also sets
 `formatoptions += t` to auto wrap text.
 
+                                                *g:dart_trailing_comma_indent*
+Set to `v:true` to indent argument lists by the shiftwidth (2 spaces) instead of
+double that. This matches the indentation produced by `dart format` when the
+argument list uses a trailing comma.
+
                                                 *g:dartfmt_options*
 Configure DartFmt options with `let g:dartfmt_options`, for example, enable
 auto syntax fixes with `let g:dartfmt_options = ['--fix']`
