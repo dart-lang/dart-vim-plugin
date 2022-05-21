@@ -116,7 +116,7 @@ endfunction
 "
 " Returns [found, package_map]
 function! s:PackageMap() abort
-  let [found, dot_packages] = s:DotPackagesFile()
+  let [found, dot_packages] = s:FindFile('.packages')
   if found
     let dot_packages_dir = fnamemodify(dot_packages, ':p:h')
     let lines = readfile(dot_packages)
@@ -142,7 +142,7 @@ function! s:PackageMap() abort
     endfor
     return [v:true, map]
   endif
-  let [found, package_config] = s:PackageConfigJson()
+  let [found, package_config] = s:FindFile('.dart_tool/package_config.json')
   if found
     let dart_tool_dir = fnamemodify(package_config, ':p:h')
     let lines = readfile(package_config)
@@ -178,51 +178,19 @@ function! dart#ToggleFormatOnSave() abort
   let g:dart_format_on_save = 1
 endfunction
 
-" Finds a file name '.packages' in the cwd, or in any directory above the open
+" Finds a file named [a:path] in the cwd, or in any directory above the open
 " file.
 "
-" Returns [found, file].
-function! s:DotPackagesFile() abort
-  if filereadable('.packages')
-    return [v:true, '.packages']
+" Returns [found, file]
+function! s:FindFile(path) abort
+  if filereadable(a:path)
+    return [v:true, a:path]
   endif
   let dir_path = expand('%:p:h')
   while v:true
-    let file_path = dir_path.'/.packages'
+    let file_path = dir_path.'/'.a:path
     if filereadable(file_path)
       return [v:true, file_path]
-    endif
-    let parent = fnamemodify(dir_path, ':h')
-    if dir_path == parent
-      break
-    endif
-    let dir_path = parent
-  endwhile
-  return [v:false, '']
-endfunction
-
-" Finds a file named 'package_config.json' in a '.dart_tool' directory in the
-" cwd, or in any directory above the open file.
-"
-" Returns [found, file].
-function! s:PackageConfigJson() abort
-  if isdirectory('.dart_tool')
-    let package_config = '.dart_tool/package_config.json'
-    if filereadable(package_config)
-      return [v:true, package_config]
-    else
-      return [v:false, '']
-    endif
-  endif
-  let dir_path = expand('%:p:h')
-  while v:true
-    if isdirectory(dir_path.'/.dart_tool')
-      let package_config = dir_path.'/.dart_tool/package_config.json'
-      if filereadable(package_config)
-        return [v:true, package_config]
-      else
-        return [v:false, '']
-      endif
     endif
     let parent = fnamemodify(dir_path, ':h')
     if dir_path == parent
