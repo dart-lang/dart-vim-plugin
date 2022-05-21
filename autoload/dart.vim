@@ -145,8 +145,8 @@ function! s:PackageMap() abort
   let [found, package_config] = s:FindFile('.dart_tool/package_config.json')
   if found
     let dart_tool_dir = fnamemodify(package_config, ':p:h')
-    let lines = readfile(package_config)
-    let packages_dict = json_decode(lines)
+    let content = join(readfile(package_config), "\n")
+    let packages_dict = json_decode(content)
     if packages_dict['configVersion'] != '2'
       s:error('Unsupported version of package_config.json')
       return [v:false, {}]
