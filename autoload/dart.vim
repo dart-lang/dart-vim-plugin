@@ -88,9 +88,9 @@ endfunction
 
 " Finds the path to `uri`.
 "
-" If the file is a package: uri, looks for a .packages file to resolve the path.
-" If the path cannot be resolved, or is not a package: uri, returns the
-" original.
+" If the file is a package: uri, looks for a package_config.json or .packages
+" file to resolve the path. If the path cannot be resolved, or is not a
+" package: uri, returns the original.
 function! dart#resolveUri(uri) abort
   if a:uri !~# 'package:'
     return a:uri
@@ -112,10 +112,36 @@ function! dart#resolveUri(uri) abort
       \ '')
 endfunction
 
-" A map from package name to lib directory parse from a '.packages' file.
+" A map from package name to lib directory parse from a 'package_config.json'
+" or '.packages' file.
 "
 " Returns [found, package_map]
 function! s:PackageMap() abort
+  let [found, package_config] = s:FindFile('.dart_tool/package_config.json')
+  if found
+    let dart_tool_dir = fnamemodify(package_config, ':p:h')
+    let content = join(readfile(package_config), "\n")
+    let packages_dict = json_decode(content)
+    if packages_dict['configVersion'] != '2'
+      s:error('Unsupported version of package_config.json')
+      return [v:false, {}]
+    endif
+    let map = {}
+    for package in packages_dict['packages']
+      let name = package['name']
+      let uri = package['rootUri']
+      let package_uri = package['packageUri']
+      if uri =~# 'file:/'
+        let uri = substitute(uri, 'file://', '', '')
+        let lib_dir = resolve(uri.'/'.package_uri)
+      else
+        let lib_dir = resolve(dart_tool_dir.'/'.uri.'/'.package_uri)
+      endif
+      let map[name] = lib_dir
+    endfor
+    return [v:true, map]
+  endif
+
   let [found, dot_packages] = s:FindFile('.packages')
   if found
     let dot_packages_dir = fnamemodify(dot_packages, ':p:h')
@@ -139,30 +165,6 @@ function! s:PackageMap() abort
         let lib_dir = lib_dir[:len(lib_dir) - 2]
       endif
       let map[package] = lib_dir
-    endfor
-    return [v:true, map]
-  endif
-  let [found, package_config] = s:FindFile('.dart_tool/package_config.json')
-  if found
-    let dart_tool_dir = fnamemodify(package_config, ':p:h')
-    let content = join(readfile(package_config), "\n")
-    let packages_dict = json_decode(content)
-    if packages_dict['configVersion'] != '2'
-      s:error('Unsupported version of package_config.json')
-      return [v:false, {}]
-    endif
-    let map = {}
-    for package in packages_dict['packages']
-      let name = package['name']
-      let uri = package['rootUri']
-      let package_uri = package['packageUri']
-      if uri =~# 'file:/'
-        let uri = substitute(uri, 'file://', '', '')
-        let lib_dir = resolve(uri.'/'.package_uri)
-      else
-        let lib_dir = resolve(dart_tool_dir.'/'.uri.'/'.package_uri)
-      endif
-      let map[name] = lib_dir
     endfor
     return [v:true, map]
   endif
