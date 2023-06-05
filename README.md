@@ -69,7 +69,7 @@ call vundle#end()
 ## Configuration
 
 Enable HTML syntax highlighting inside Dart strings with `let
-dart_html_in_string=v:true` (default false).
+g:dart_html_in_string = v:true` (default false).
 
 Highlighting for specific syntax groups can be disabled by defining custom
 highlight group links. See `:help dart-syntax`
@@ -77,7 +77,7 @@ highlight group links. See `:help dart-syntax`
 Enable Dart style guide syntax (like 2-space indentation) with
 `let g:dart_style_guide = 2`
 
-Enable DartFmt execution on buffer save with `let g:dart_format_on_save = 1`
+Enable DartFmt execution on buffer save with `let g:dart_format_on_save = v:true`
 
 Configure DartFmt options with `let g:dartfmt_options`
 (discover formatter options with `dartfmt -h`)
