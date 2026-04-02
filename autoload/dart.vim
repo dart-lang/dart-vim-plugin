@@ -60,29 +60,15 @@ function! dart#fmt(...) abort
 endfunction
 
 function! s:FindDartFmt() abort
+  if exists('g:dartfmt_command')
+    return type(g:dart_format_command) == v:t_list
+        \ ? g:dart_format_command
+        \ : [g:dart_format_command]
+  endif
   if executable('dart')
-    let l:version_text = system('dart --version')
-    let l:match = matchlist(l:version_text,
-        \ '\vDart SDK version: (\d+)\.(\d+)\.\d+.*')
-    if empty(l:match)
-      call s:error('Unable to determine dart version')
-      return []
-    endif
-    let l:major = l:match[1]
-    let l:minor = l:match[2]
-    if l:major > 2 || l:major == 2 && l:minor >= 14
-      return ['dart', 'format']
-    endif
+    return ['dart', 'format']
   endif
-  " Legacy fallback for Dart SDK pre 2.14
-  if executable('dartfmt') | return ['dartfmt'] | endif
-  if executable('flutter')
-    let l:flutter_cmd = resolve(exepath('flutter'))
-    let l:bin = fnamemodify(l:flutter_cmd, ':h')
-    let l:dartfmt = l:bin.'/cache/dart-sdk/bin/dartfmt'
-    if executable(l:dartfmt) | return [l:dartfmt] | endif
-  endif
-  call s:error('Cannot find a `dartfmt` command')
+  call s:error('Cannot find a `dart` command')
   return []
 endfunction
 

@@ -51,7 +51,8 @@ Enable Dart style guide syntax (like 2-space indentation) with
 Enable DartFmt execution on buffer save with `let g:dart_format_on_save = v:true`
 
 Configure DartFmt options with `let g:dartfmt_options`
-(discover formatter options with `dartfmt -h`)
+(discover formatter options with `dartfmt -h`). Override the default formatting
+command with `g:dartfmt_command`.
 
 ## FAQ
 
