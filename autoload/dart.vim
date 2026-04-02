@@ -63,13 +63,20 @@ function! s:formatResult(stdout, stderr, buffer_content) abort
     call winrestview(win_view)
     call s:clearQfList('dartfmt')
   else
-    let l:skip_count = 0
-    while l:skip_count < len(a:stderr) && a:stderr[l:skip_count] =~# '^||'
-      let l:skip_count += 1
-    endwhile
-    let l:diagnostics = a:stderr[l:skip_count:]
-    let l:format = '%Aline %l\, column %c of %f: %m,%C%.%#,%-G%.%#'
-    call s:cexpr(l:format, l:diagnostics, 'dartfmt')
+    let l:has_diagnostic = v:false
+    for l:line in a:stderr
+      if l:line =~# '^line \d\+, column \d\+ of '
+        let l:has_diagnostic = v:true
+        break
+      endif
+    endfor
+
+    if l:has_diagnostic
+      let l:format = '%Aline %l\, column %c of %f: %m,%C%.%#,%-G%.%#'
+    else
+      let l:format = '%m'
+    endif
+    call s:cexpr(l:format, a:stderr, 'dartfmt')
   endif
 endfunction
 
