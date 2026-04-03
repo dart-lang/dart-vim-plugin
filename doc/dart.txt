@@ -60,6 +60,10 @@ Configure DartFmt options with `let g:dartfmt_options`, for example, enable
 auto syntax fixes with `let g:dartfmt_options = ['--fix']`
 (discover formatter options with `dart format -h`)
 
+                                                *g:dartfmt_command*
+Override the command used for formatting. Defaults to `['dart', 'format']`.
+May be a String or a List of Strings.
+
 
 SYNTAX HIGHLIGHTING                              *dart-syntax*
 
