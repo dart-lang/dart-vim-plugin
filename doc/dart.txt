@@ -91,5 +91,10 @@ For example, to remove the highlighting for type and function names:
  highlight link dartType Normal
  highlight link dartFunction Normal
 <
+To disable syntax highlighting entirely (for instance, to use treesitter
+instead) create a `after/syntax/dart.vim` file in your vim configuration
+directory (e.g. `~/.vim/after/syntax/dart.vim`) and add `syntax clear`.
+This will clear the syntax definitions added from this plugin, as well as the
+ones defined in the Dart language syntax file packaged with the editor.
 
  vim:tw=78:sw=4:ts=8:ft=help:norl:
