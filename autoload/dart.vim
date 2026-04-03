@@ -29,33 +29,54 @@ function! dart#fmt(...) abort
   let l:dartfmt = s:FindDartFmt()
   if empty(l:dartfmt) | return | endif
   let buffer_content = getline(1, '$')
-  let l:cmd = extend(l:dartfmt, ['--stdin-name', shellescape(expand('%'))])
+  let l:cmd = extend(l:dartfmt, ['--stdin-name', expand('%')])
   if exists('g:dartfmt_options')
     call extend(l:cmd, g:dartfmt_options)
   endif
   call extend(l:cmd, a:000)
-  let lines = systemlist(join(l:cmd), join(buffer_content, "\n"))
-  " TODO(https://github.com/dart-lang/sdk/issues/38507) - Remove once the
-  " tool no longer emits this line on SDK upgrades.
-  if lines[-1] ==# 'Isolate creation failed'
-    let lines = lines[:-2]
+  let l:stdout_data = []
+  let l:stderr_data = []
+  let l:options = {
+      \ 'out_cb': { ch, msg -> add(l:stdout_data, msg) },
+      \ 'err_cb': { ch, msg -> add(l:stderr_data, msg) },
+      \ 'close_cb': { ch ->
+      \    s:formatResult(l:stdout_data, l:stderr_data, l:buffer_content)} }
+  if has('patch-8.1.350')
+    let options['noblock'] = v:true
   endif
-  if buffer_content == lines
+  let l:job = job_start(l:cmd, l:options)
+  call ch_sendraw(job_getchannel(l:job), join(l:buffer_content, "\n"))
+  call ch_close_in(job_getchannel(l:job))
+endfunction
+
+function! s:formatResult(stdout, stderr, buffer_content) abort
+  if a:buffer_content == a:stdout
     call s:clearQfList('dartfmt')
     return
   endif
-  if 0 == v:shell_error
+  if !empty(a:stdout)
     let win_view = winsaveview()
-    silent keepjumps call setline(1, lines)
-    if line('$') > len(lines)
-      silent keepjumps execute string(len(lines)+1).',$ delete'
+    silent keepjumps call setline(1, a:stdout)
+    if line('$') > len(a:stdout)
+      silent keepjumps execute string(len(a:stdout)+1).',$ delete'
     endif
     call winrestview(win_view)
     call s:clearQfList('dartfmt')
   else
-    let errors = lines[2:]
-    let error_format = '%Aline %l\, column %c of %f: %m,%C%.%#'
-    call s:cexpr(error_format, errors, 'dartfmt')
+    let l:has_diagnostic = v:false
+    for l:line in a:stderr
+      if l:line =~# '^line \d\+, column \d\+ of '
+        let l:has_diagnostic = v:true
+        break
+      endif
+    endfor
+
+    if l:has_diagnostic
+      let l:format = '%Aline %l\, column %c of %f: %m,%C%.%#,%-G%.%#'
+    else
+      let l:format = '%m'
+    endif
+    call s:cexpr(l:format, a:stderr, 'dartfmt')
   endif
 endfunction
 
