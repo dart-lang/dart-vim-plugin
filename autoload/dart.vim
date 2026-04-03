@@ -82,9 +82,9 @@ endfunction
 
 function! s:FindDartFmt() abort
   if exists('g:dartfmt_command')
-    return type(g:dart_format_command) == v:t_list
-        \ ? g:dart_format_command
-        \ : [g:dart_format_command]
+    return type(g:dartfmt_command) == v:t_list
+        \ ? g:dartfmt_command
+        \ : [g:dartfmt_command]
   endif
   if executable('dart')
     return ['dart', 'format']
