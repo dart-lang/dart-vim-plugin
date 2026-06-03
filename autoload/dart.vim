@@ -37,6 +37,8 @@ function! dart#fmt(...) abort
   let l:stdout_data = []
   let l:stderr_data = []
   let l:options = {
+      \ 'in_io': 'buffer',
+      \ 'in_buf': bufnr('%'),
       \ 'out_cb': { ch, msg -> add(l:stdout_data, msg) },
       \ 'err_cb': { ch, msg -> add(l:stderr_data, msg) },
       \ 'close_cb': { ch ->
@@ -45,8 +47,6 @@ function! dart#fmt(...) abort
     let options['noblock'] = v:true
   endif
   let l:job = job_start(l:cmd, l:options)
-  call ch_sendraw(job_getchannel(l:job), join(l:buffer_content, "\n"))
-  call ch_close_in(job_getchannel(l:job))
 endfunction
 
 function! s:formatResult(stdout, stderr, buffer_content) abort
