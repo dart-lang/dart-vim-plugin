@@ -28,7 +28,6 @@ endfunction
 function! dart#fmt(...) abort
   let l:dartfmt = s:FindDartFmt()
   if empty(l:dartfmt) | return | endif
-  let buffer_content = getline(1, '$')
   let l:cmd = extend(l:dartfmt, ['--stdin-name', expand('%')])
   if exists('g:dartfmt_options')
     call extend(l:cmd, g:dartfmt_options)
@@ -42,19 +41,31 @@ function! dart#fmt(...) abort
       \ 'out_cb': { ch, msg -> add(l:stdout_data, msg) },
       \ 'err_cb': { ch, msg -> add(l:stderr_data, msg) },
       \ 'close_cb': { ch ->
-      \    s:formatResult(l:stdout_data, l:stderr_data, l:buffer_content)} }
+      \    s:formatResult(l:stdout_data, l:stderr_data)} }
   if has('patch-8.1.350')
     let options['noblock'] = v:true
   endif
   let l:job = job_start(l:cmd, l:options)
 endfunction
 
-function! s:formatResult(stdout, stderr, buffer_content) abort
-  if a:buffer_content == a:stdout
-    call s:clearQfList('dartfmt')
-    return
-  endif
+function! s:formatResult(stdout, stderr) abort
   if !empty(a:stdout)
+    let l:is_equal = v:false
+    if line('$') == len(a:stdout)
+      let l:is_equal = v:true
+      for l:i in range(1, line('$'))
+        if getline(l:i) !=# a:stdout[l:i - 1]
+          let l:is_equal = v:false
+          break
+        endif
+      endfor
+    endif
+
+    if l:is_equal
+      call s:clearQfList('dartfmt')
+      return
+    endif
+
     let win_view = winsaveview()
     silent keepjumps call setline(1, a:stdout)
     if line('$') > len(a:stdout)
